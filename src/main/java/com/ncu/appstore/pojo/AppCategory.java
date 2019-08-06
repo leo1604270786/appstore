@@ -1,8 +1,12 @@
 package com.ncu.appstore.pojo;
 
-import java.util.Date;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class AppCategory {
+
     private Long id;
 
     private String categorycode;

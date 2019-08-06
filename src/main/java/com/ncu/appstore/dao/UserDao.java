@@ -7,4 +7,5 @@ package com.ncu.appstore.dao;
  * @create: 2019-08-06 15:34
  **/
 public interface UserDao {
+
 }

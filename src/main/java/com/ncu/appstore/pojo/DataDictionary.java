@@ -1,8 +1,12 @@
 package com.ncu.appstore.pojo;
 
+import org.springframework.stereotype.Component;
+
+
 import java.util.Date;
 
 public class DataDictionary {
+
     private Long id;
 
     private String typecode;

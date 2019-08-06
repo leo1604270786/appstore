@@ -1,9 +1,13 @@
 package com.ncu.appstore.pojo;
 
+
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Component
 public class AppInfo {
+
     private Long id;
 
     private String softwarename;
