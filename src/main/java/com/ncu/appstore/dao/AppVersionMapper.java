@@ -1,8 +1,9 @@
 package com.ncu.appstore.dao;
 
 import com.ncu.appstore.pojo.AppVersion;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface AppVersionMapper {
+public interface AppVersionMapper extends Mapper<AppVersion> {
     int deleteByPrimaryKey(Long id);
 
     int insert(AppVersion record);

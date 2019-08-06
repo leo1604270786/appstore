@@ -1,8 +1,9 @@
 package com.ncu.appstore.dao;
 
 import com.ncu.appstore.pojo.DataDictionary;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface DataDictionaryMapper {
+public interface DataDictionaryMapper extends Mapper<DataDictionary> {
     int deleteByPrimaryKey(Long id);
 
     int insert(DataDictionary record);

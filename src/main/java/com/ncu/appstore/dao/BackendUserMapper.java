@@ -1,8 +1,9 @@
 package com.ncu.appstore.dao;
 
 import com.ncu.appstore.pojo.BackendUser;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface BackendUserMapper {
+public interface BackendUserMapper extends Mapper<BackendUser> {
     int deleteByPrimaryKey(Long id);
 
     int insert(BackendUser record);
