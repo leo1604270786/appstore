@@ -52,6 +52,5 @@
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
         </plugin>
 
-
     </plugins>
 </configuration>
