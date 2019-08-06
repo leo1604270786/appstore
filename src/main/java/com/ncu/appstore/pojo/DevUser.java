@@ -3,8 +3,10 @@ package com.ncu.appstore.pojo;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Date;
+import org.springframework.stereotype.Component;
 
+import java.util.Date;
+@Component
 public class DevUser {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略

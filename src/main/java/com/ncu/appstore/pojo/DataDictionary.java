@@ -3,12 +3,17 @@ package com.ncu.appstore.pojo;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.springframework.stereotype.Component;
+
+
 import java.util.Date;
 
 public class DataDictionary {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(数据字典表)
+
+
 
     private String typecode;//类型编号
 

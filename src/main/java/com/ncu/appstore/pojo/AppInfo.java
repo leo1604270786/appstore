@@ -1,11 +1,18 @@
 package com.ncu.appstore.pojo;
 
+
+import org.springframework.stereotype.Component;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
-
+@Component
 public class AppInfo {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
