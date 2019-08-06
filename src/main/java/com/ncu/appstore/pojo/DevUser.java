@@ -1,27 +1,32 @@
 package com.ncu.appstore.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class DevUser {
-    private Long id;
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+    private Long id;//主键(开发者表)
 
-    private String devcode;
+    private String devcode;//账号
 
-    private String devname;
+    private String devname;//'姓名',
 
-    private String devpassword;
+    private String devpassword;//密码
 
-    private String devemail;
+    private String devemail;//电子邮箱
 
-    private String devinfo;
+    private String devinfo;//介绍
 
-    private Long createby;
+    private Long createby;//null
 
-    private Date creationdate;
+    private Date creationdate;//注册时间
 
-    private Long modifyby;
+    private Long modifyby;//null
 
-    private Date modifydate;
+    private Date modifydate;//null
 
     public Long getId() {
         return id;

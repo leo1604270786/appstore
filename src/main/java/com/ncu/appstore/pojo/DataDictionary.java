@@ -1,25 +1,30 @@
 package com.ncu.appstore.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class DataDictionary {
-    private Long id;
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+    private Long id;//主键(数据字典表)
 
-    private String typecode;
+    private String typecode;//类型编号
 
-    private String typename;
+    private String typename;//类型名
 
-    private Long valueid;
+    private Long valueid;//类型值id
 
-    private String valuename;
+    private String valuename;//类型值名字
 
-    private Long createdby;
+    private Long createdby;//谁创建的(外键backend_user{id})
 
-    private Date creationdate;
+    private Date creationdate;//
 
-    private Long modifyby;
+    private Long modifyby;//上次谁修改的(外键backend_user{id})
 
-    private Date modifydate;
+    private Date modifydate;//
 
     public Long getId() {
         return id;

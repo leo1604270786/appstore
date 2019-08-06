@@ -1,56 +1,61 @@
 package com.ncu.appstore.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class AppInfo {
-    private Long id;
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+    private Long id;//主键(APP信息表)
 
-    private String softwarename;
+    private String softwarename;//软件名
 
-    private String apkname;
+    private String apkname;//APK名
 
-    private String supportrom;
+    private String supportrom;//支持的ROM
 
-    private String interfacelanguage;
+    private String interfacelanguage;//界面所用语言
 
-    private BigDecimal softwaresize;
+    private BigDecimal softwaresize;//'软件的大小(Mb)
 
-    private Date updatedate;
+    private Date updatedate;//更新时间
 
-    private Long devid;
+    private Long devid;//开发者Id
 
-    private String appinfo;
+    private String appinfo;//app基本信息
 
-    private Long status;
+    private Long status;//状态（对应：data_dictionary，1 待审核 2 审核通过 3 审核不通过 4 已上架 5 已下架）
 
-    private Date onsaledate;
+    private Date onsaledate;//上架时间
 
-    private Date offsaledate;
+    private Date offsaledate;//下架时间
 
-    private Long floatformid;
+    private Long floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
 
-    private Long categprylevel3;
+    private Long categprylevel3;//三级分类id（来自data_dictionary）
 
-    private Long downloads;
+    private Long downloads;//下载量
 
-    private Long createbby;
+    private Long createbby;//谁添加的(对应dev_user{id})
 
-    private Date creationdate;
+    private Date creationdate;//'添加时间
 
-    private Long modifyby;
+    private Long modifyby;//更新者id（对应dev_user{id}）
 
-    private Date modifydate;
+    private Date modifydate;//更新时间
 
-    private Long categorylevel1;
+    private Long categorylevel1;//一级分类id（来自data_dictionary）
 
-    private Long categorylevel2;
+    private Long categorylevel2;//二级分类id（来自data_dictionary）
 
-    private String logolocpath;
+    private String logolocpath;//logo存储在本地电脑的路径
 
-    private Long versionid;
+    private Long versionid;//版本id
 
-    private String logowebpath;
+    private String logowebpath;//logo在web服务器存储路径
 
     public Long getId() {
         return id;

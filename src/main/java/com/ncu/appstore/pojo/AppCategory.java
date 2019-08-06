@@ -1,23 +1,28 @@
 package com.ncu.appstore.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class AppCategory {
-    private Long id;
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+    private Long id;//主键(类型表)
 
-    private String categorycode;
+    private String categorycode;//类型编码
 
-    private String categoryname;
+    private String categoryname;//类型名
 
-    private Long parentid;
+    private Long parentid;//父类型id
 
-    private Long createby;
+    private Long createby;//谁创建的(外键backend_user{id})
 
-    private Date creationtime;
+    private Date creationtime;//创建时间
 
-    private Long modifyby;
+    private Long modifyby;//修改人(外键backend_user{id})
 
-    private Date modifydate;
+    private Date modifydate;//上次修改时间
 
     public Long getId() {
         return id;

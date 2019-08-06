@@ -1,25 +1,30 @@
 package com.ncu.appstore.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class BackendUser {
-    private Long id;
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+    private Long id;//主键(后台人员表)
 
-    private String usercode;
+    private String usercode;//用户编号
 
-    private String username;
+    private String username;//姓名
 
-    private Long usertype;
+    private Long usertype;//角色类型id（对应data_dictionary）
 
-    private Long createby;
+    private Long createby;//默认为空
 
-    private Date creationdate;
+    private Date creationdate;//默认为空
 
-    private Long modifyby;
+    private Long modifyby;//默认为空
 
-    private Date modifydate;
+    private Date modifydate;//默认为空
 
-    private String userpassword;
+    private String userpassword;//登录密码
 
     public Long getId() {
         return id;

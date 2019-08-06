@@ -1,34 +1,39 @@
 package com.ncu.appstore.pojo;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class AppVersion {
-    private Long id;
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
+    private Long id;//主键(app版本表)
 
-    private Long appid;
+    private Long appid;//app的id（外键app_info{id}）
 
-    private String versionno;
+    private String versionno;//版本编号
 
-    private String versioninfo;
+    private String versioninfo;//版本信息
 
-    private Long publishstatus;
+    private Long publishstatus;//发布状态，对应data_dictionary，1 不发布 2 已发布 3 预发布
 
-    private String downloadlink;
+    private String downloadlink;//下载链接
 
-    private BigDecimal versionsize;
+    private BigDecimal versionsize;//版本大小
 
-    private Long createby;
+    private Long createby;//创建者id（外键dev_user{id}）
 
-    private Date creationdate;
+    private Date creationdate;//创建日期时间
 
-    private Long modifyby;
+    private Long modifyby;//修改者id（外键dev_user{id}）
 
-    private Date modifydate;
+    private Date modifydate;//修改时间
 
-    private String apklocpath;
+    private String apklocpath;//apk在服务器的存储路径
 
-    private String apkfilename;
+    private String apkfilename;//apl文件名
 
     public Long getId() {
         return id;
