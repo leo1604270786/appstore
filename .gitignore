@@ -1,11 +1,10 @@
 # IntelliJ
 /out/
-/target/
 .idea
 .idea/
 /.idea
 /.idea/
+# Maven
+/target/
 # web
 /web/WEB-INF/classes/
-# test
-/test/
