@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncu.appstore.dao.AppInfoMapper">
+    <!-- app_info表所有字段信息 -->
+    <sql id="appInfoColumns">
+          a.id,
+          a.softwareName,
+          a.APKName,
+          a.supportROM,
+          a.interfaceLanguage,
+          a.softWareSize,
+          a.updateDate,
+          a.devId,
+          a.appInfo,
+          a.status,
+          a.onSaleDate,
+          a.offSaleDate,
+          a.floatFormId,
+          a.categoryLevel1,
+          a.categoryLevel2,
+          a.categoryLevel3,
+          a.downloads,
+          a.createBy,
+          a.creationDate,
+          a.modifyBy,
+          a.modifyDate,
+          a.logoLocPath,
+          a.versionId,
+          a.logoWebPath
+    </sql>
+    <select id="page" resultType="AppInfo" parameterType="java.util.Map">
+        SELECT
+        <include refid="appInfoColumns"/>
+        FROM
+        app_info AS a
+        <where>
+            <if test="pageParams.softwarename != null and pageParams.softwarename != ''">
+                AND a.softwareName LIKE CONCAT('%',#{pageParams.softwarename},'%')
+            </if>
+            <if test="pageParams.status != null and pageParams.status != ''">
+                AND a.status LIKE CONCAT('%',#{pageParams.status},'%')
+            </if>
+            <if test="pageParams.floatformid != null and pageParams.floatformid != ''">
+                AND a.floatformid LIKE CONCAT('%',#{pageParams.floatformid},'%')
+            </if>
+            <if test="pageParams.categorylevel1 != null and pageParams.categorylevel1 != ''">
+                AND a.categoryLevel1 = #{pageParams.categorylevel1}
+            </if>
+            <if test="pageParams.categorylevel2 != null and pageParams.categorylevel2 != ''">
+                AND a.categoryLevel2 = #{pageParams.categorylevel2}
+            </if>
+            <if test="pageParams.categorylevel3 != null and pageParams.categorylevel3 != ''">
+                AND a.categoryLevel3 = #{pageParams.categorylevel3}
+            </if>
+        </where>
+        LIMIT #{start}, #{length}
+    </select>
+</mapper>

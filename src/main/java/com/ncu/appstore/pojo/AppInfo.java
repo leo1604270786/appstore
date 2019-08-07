@@ -43,11 +43,11 @@ public class AppInfo implements Serializable {
 
     private Long floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
 
-    private Long categprylevel3;//三级分类id（来自data_dictionary）
+    private Long categorylevel3;//三级分类id（来自data_dictionary）
 
     private Long downloads;//下载量
 
-    private Long createbby;//谁添加的(对应dev_user{id})
+    private Long createby;//谁添加的(对应dev_user{id})
 
     private Date creationdate;//'添加时间
 
@@ -169,12 +169,12 @@ public class AppInfo implements Serializable {
         this.floatformid = floatformid;
     }
 
-    public Long getCategprylevel3() {
-        return categprylevel3;
+    public Long getCategorylevel3() {
+        return categorylevel3;
     }
 
-    public void setCategprylevel3(Long categprylevel3) {
-        this.categprylevel3 = categprylevel3;
+    public void setCategorylevel3(Long categorylevel3) {
+        this.categorylevel3 = categorylevel3;
     }
 
     public Long getDownloads() {
@@ -185,12 +185,12 @@ public class AppInfo implements Serializable {
         this.downloads = downloads;
     }
 
-    public Long getCreatebby() {
-        return createbby;
+    public Long getCreateby() {
+        return createby;
     }
 
-    public void setCreatebby(Long createbby) {
-        this.createbby = createbby;
+    public void setCreateby(Long createby) {
+        this.createby = createby;
     }
 
     public Date getCreationdate() {
@@ -273,9 +273,9 @@ public class AppInfo implements Serializable {
                 ", onsaledate=" + onsaledate +
                 ", offsaledate=" + offsaledate +
                 ", floatformid=" + floatformid +
-                ", categprylevel3=" + categprylevel3 +
+                ", categprylevel3=" + categorylevel3 +
                 ", downloads=" + downloads +
-                ", createbby=" + createbby +
+                ", createbby=" + createby +
                 ", creationdate=" + creationdate +
                 ", modifyby=" + modifyby +
                 ", modifydate=" + modifydate +
