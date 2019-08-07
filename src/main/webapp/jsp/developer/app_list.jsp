@@ -117,7 +117,7 @@
                             <h3 class="box-title">App列表</h3>
                         </div>
                         <div class="box-body">
-                            <a href="/user/form" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus">新增</i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="${pageContext.request.contextPath}/app/form" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus">新增</i></a>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn btn-default btn-sm" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash">删除</i></button>&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-download">导入</i></a>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-upload">导出</i></a>&nbsp;&nbsp;&nbsp;
@@ -172,7 +172,7 @@
                 "data": function (row, type, val, meta) {
                     var detaleUrl = "/user/detail?id=" + row.id;
                     return '<button class="btn btn-default btn-sm" onclick="#"><i class="fa fa-search">查看</i></button>&nbsp;&nbsp;&nbsp;' +
-                        '<a href="/app/form?id=' + row.id + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit">编辑</i></a>&nbsp;&nbsp;&nbsp;' +
+                        '<a href="${pageContext.request.contextPath}/app/form?id=' + row.id + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit">编辑</i></a>&nbsp;&nbsp;&nbsp;' +
                         '<button class="btn btn-danger btn-sm" onclick="#"><i class="fa fa-trash-o">删除</i></button>';
                 }
             }

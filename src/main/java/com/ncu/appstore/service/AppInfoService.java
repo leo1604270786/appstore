@@ -1,5 +1,6 @@
 package com.ncu.appstore.service;
 
+import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppInfo;
 
@@ -19,4 +20,18 @@ public interface AppInfoService {
      * @return
      */
     PageInfo<AppInfo> page(int draw, int start, int length, AppInfo appInfo);
+
+    /**
+     * 通过id查询app基础信息
+     * @param id
+     * @return
+     */
+    AppInfo getAppInfoById(Long id);
+
+    /**
+     * 保存App信息
+     * @param appInfo
+     * @return
+     */
+    BaseResult save(AppInfo appInfo);
 }

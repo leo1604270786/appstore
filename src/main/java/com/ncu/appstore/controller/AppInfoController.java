@@ -1,13 +1,17 @@
 package com.ncu.appstore.controller;
 
+import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppInfo;
 import com.ncu.appstore.service.AppInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @program: app-store
@@ -20,11 +24,52 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AppInfoController extends BaseController {
     @Autowired
     private AppInfoService appInfoService;
+
+    @ModelAttribute
+    private AppInfo getAppInfo(Long id){
+        AppInfo appInfo = null;
+        if (id != null){
+            appInfo = appInfoService.getAppInfoById(id);
+        }else{
+            appInfo = new AppInfo();
+        }
+        return appInfo;
+    }
+
+    /**
+     * 跳转到列表页
+     * @return
+     */
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public String list(){
         return "/developer/app_list";
     }
 
+    /**
+     * 跳转到表单页
+     * @return
+     */
+    @RequestMapping(value = "form",method = RequestMethod.GET)
+    public String form(){
+        return "/developer/app_form";
+    }
+
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public String save(AppInfo appInfo, Model model, RedirectAttributes attr){
+        //数据校验
+
+        BaseResult baseResult = appInfoService.save(appInfo);
+        //保存成功
+        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
+            attr.addFlashAttribute("baseResult",baseResult);
+            return "redirect:/app/list";
+        }
+        //保存失败
+        else {
+            model.addAttribute("baseResult",baseResult);
+            return "/developer/app_form";
+        }
+    }
     /**
      * 分页查新app信息
      * @param draw
