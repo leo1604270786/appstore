@@ -33,4 +33,15 @@
         <servlet-name>DruidStatView</servlet-name>
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
+    <!--验证码-->
+    <servlet>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <servlet-class>
+            com.ncu.appstore.common.CodeCaptchaServlet
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CaptchaServlet</servlet-name>
+        <url-pattern>/captchaServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @create: 2019-08-06 11:18
  **/
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
 
     @RequestMapping(value = {"", "index"}, method = RequestMethod.GET)
     public String index(){

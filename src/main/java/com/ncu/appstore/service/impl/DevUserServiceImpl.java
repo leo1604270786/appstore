@@ -3,6 +3,7 @@ package com.ncu.appstore.service.impl;
 import com.ncu.appstore.dao.DevUserMapper;
 import com.ncu.appstore.pojo.DevUser;
 
+import com.ncu.appstore.service.DevUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,21 @@ import org.springframework.stereotype.Service;
  * @create: 2019-08-06 15:36
  **/
 @Service
-public class DevUserServiceImpl {
-    /*//测试
+public class DevUserServiceImpl implements DevUserService {
     @Autowired
     private DevUserMapper devUserMapper;
-    public void addDevUser(){
-        DevUser devUser = new DevUser();
-        devUser.setDevname("name1");
+    public DevUser addDevUser(DevUser devUser){
         devUserMapper.insert(devUser);
+        return devUser;
     }
-    */
+    public DevUser findDevUserByEmail(String email){
+        DevUser devUser = new DevUser();
+        devUser.setDevemail(email);
+        return devUserMapper.selectOne(devUser);
+    }
+    public DevUser findDevUserByCode(String devcode){
+        DevUser devUser = new DevUser();
+        devUser.setDevcode(devcode);
+        return devUserMapper.selectOne(devUser);
+    }
 }
