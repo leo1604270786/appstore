@@ -5,9 +5,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Date;
 @Component
-public class BackendUser {
+public class BackendUser implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(后台人员表)
@@ -98,5 +99,20 @@ public class BackendUser {
 
     public void setUserpassword(String userpassword) {
         this.userpassword = userpassword == null ? null : userpassword.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "BackendUser{" +
+                "id=" + id +
+                ", usercode='" + usercode + '\'' +
+                ", username='" + username + '\'' +
+                ", usertype=" + usertype +
+                ", createby=" + createby +
+                ", creationdate=" + creationdate +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                ", userpassword='" + userpassword + '\'' +
+                '}';
     }
 }

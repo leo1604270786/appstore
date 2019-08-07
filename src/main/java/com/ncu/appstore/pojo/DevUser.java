@@ -5,9 +5,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.util.Date;
 @Component
-public class DevUser {
+public class DevUser implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(开发者表)
@@ -108,5 +109,21 @@ public class DevUser {
 
     public void setModifydate(Date modifydate) {
         this.modifydate = modifydate;
+    }
+
+    @Override
+    public String toString() {
+        return "DevUser{" +
+                "id=" + id +
+                ", devcode='" + devcode + '\'' +
+                ", devname='" + devname + '\'' +
+                ", devpassword='" + devpassword + '\'' +
+                ", devemail='" + devemail + '\'' +
+                ", devinfo='" + devinfo + '\'' +
+                ", createby=" + createby +
+                ", creationdate=" + creationdate +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                '}';
     }
 }

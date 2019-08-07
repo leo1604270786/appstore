@@ -1,11 +1,14 @@
 package com.ncu.appstore.pojo;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
-
-public class AdPromotion {
+@Component
+public class AdPromotion implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(广告宣传表)
@@ -116,5 +119,22 @@ public class AdPromotion {
 
     public void setModifydate(Date modifydate) {
         this.modifydate = modifydate;
+    }
+
+    @Override
+    public String toString() {
+        return "AdPromotion{" +
+                "id=" + id +
+                ", appid=" + appid +
+                ", adpicpath='" + adpicpath + '\'' +
+                ", adpv=" + adpv +
+                ", carouselposition=" + carouselposition +
+                ", starttime=" + starttime +
+                ", endtime=" + endtime +
+                ", createby=" + createby +
+                ", creationdate=" + creationdate +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                '}';
     }
 }

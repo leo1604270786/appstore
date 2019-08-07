@@ -1,11 +1,14 @@
 package com.ncu.appstore.pojo;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
-
-public class AppCategory {
+@Component
+public class AppCategory implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(类型表)
@@ -86,5 +89,19 @@ public class AppCategory {
 
     public void setModifydate(Date modifydate) {
         this.modifydate = modifydate;
+    }
+
+    @Override
+    public String toString() {
+        return "AppCategory{" +
+                "id=" + id +
+                ", categorycode='" + categorycode + '\'' +
+                ", categoryname='" + categoryname + '\'' +
+                ", parentid=" + parentid +
+                ", createby=" + createby +
+                ", creationtime=" + creationtime +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                '}';
     }
 }

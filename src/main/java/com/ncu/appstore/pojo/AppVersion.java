@@ -2,10 +2,11 @@ package com.ncu.appstore.pojo;
 
 import org.springframework.stereotype.Component;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 @Component
-public class AppVersion {
+public class AppVersion implements Serializable {
     private Long id;//主键(app版本表)
 
     private Long appid;//app的id（外键app_info{id}）
@@ -134,5 +135,24 @@ public class AppVersion {
 
     public void setApkfilename(String apkfilename) {
         this.apkfilename = apkfilename == null ? null : apkfilename.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "AppVersion{" +
+                "id=" + id +
+                ", appid=" + appid +
+                ", versionno='" + versionno + '\'' +
+                ", versioninfo='" + versioninfo + '\'' +
+                ", publishstatus=" + publishstatus +
+                ", downloadlink='" + downloadlink + '\'' +
+                ", versionsize=" + versionsize +
+                ", createby=" + createby +
+                ", creationdate=" + creationdate +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                ", apklocpath='" + apklocpath + '\'' +
+                ", apkfilename='" + apkfilename + '\'' +
+                '}';
     }
 }

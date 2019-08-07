@@ -20,7 +20,7 @@ import java.util.Date;
 @ContextConfiguration(locations = {"classpath:spring-context.xml","classpath:spring-mvc.xml","classpath:spring-context-mybatis.xml",
         "classpath:spring-context-druid.xml"})
 @WebAppConfiguration("src/main/resources")
-public class UserDaoTest {
+public class DevUserMapperTest {
     @Autowired
     private DevUserMapper mapper;
     @Test
@@ -29,5 +29,9 @@ public class UserDaoTest {
         devUser.setDevname("testAdd");
         devUser.setCreationdate(new Date());
         mapper.insert(devUser);
+    }
+    @Test
+    public void testDelete(){
+        mapper.deleteByPrimaryKey(3L);
     }
 }

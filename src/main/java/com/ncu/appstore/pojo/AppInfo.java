@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 @Component
-public class AppInfo {
+public class AppInfo implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(APP信息表)
@@ -254,5 +255,35 @@ public class AppInfo {
 
     public void setLogowebpath(String logowebpath) {
         this.logowebpath = logowebpath == null ? null : logowebpath.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "AppInfo{" +
+                "id=" + id +
+                ", softwarename='" + softwarename + '\'' +
+                ", apkname='" + apkname + '\'' +
+                ", supportrom='" + supportrom + '\'' +
+                ", interfacelanguage='" + interfacelanguage + '\'' +
+                ", softwaresize=" + softwaresize +
+                ", updatedate=" + updatedate +
+                ", devid=" + devid +
+                ", appinfo='" + appinfo + '\'' +
+                ", status=" + status +
+                ", onsaledate=" + onsaledate +
+                ", offsaledate=" + offsaledate +
+                ", floatformid=" + floatformid +
+                ", categprylevel3=" + categprylevel3 +
+                ", downloads=" + downloads +
+                ", createbby=" + createbby +
+                ", creationdate=" + creationdate +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                ", categorylevel1=" + categorylevel1 +
+                ", categorylevel2=" + categorylevel2 +
+                ", logolocpath='" + logolocpath + '\'' +
+                ", versionid=" + versionid +
+                ", logowebpath='" + logowebpath + '\'' +
+                '}';
     }
 }

@@ -6,14 +6,13 @@ import javax.persistence.Id;
 import org.springframework.stereotype.Component;
 
 
+import java.io.Serializable;
 import java.util.Date;
-
-public class DataDictionary {
+@Component
+public class DataDictionary implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(数据字典表)
-
-
 
     private String typecode;//类型编号
 
@@ -101,5 +100,20 @@ public class DataDictionary {
 
     public void setModifydate(Date modifydate) {
         this.modifydate = modifydate;
+    }
+
+    @Override
+    public String toString() {
+        return "DataDictionary{" +
+                "id=" + id +
+                ", typecode='" + typecode + '\'' +
+                ", typename='" + typename + '\'' +
+                ", valueid=" + valueid +
+                ", valuename='" + valuename + '\'' +
+                ", createdby=" + createdby +
+                ", creationdate=" + creationdate +
+                ", modifyby=" + modifyby +
+                ", modifydate=" + modifydate +
+                '}';
     }
 }
