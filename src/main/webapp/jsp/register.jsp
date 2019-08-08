@@ -99,7 +99,7 @@
             <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
                 Google+</a>
         </div>
-        <a href="./login.jsp" class="text-center">我已注册，前往登陆</a>
+        <a href="developer/login.jsp" class="text-center">我已注册，前往登陆</a>
     </div>
     <!-- /.form-box -->
 </div>

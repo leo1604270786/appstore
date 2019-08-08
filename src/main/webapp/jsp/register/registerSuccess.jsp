@@ -94,7 +94,7 @@
 <script language=javascript>
 
     $("#btn").click(function () {
-        location.href="${ctx}/jsp/login.jsp";
+        location.href="../developer/login.jsp";
     });
     $("#btn1").click(function () {
         location.href="${ctx}/jsp/index.jsp";
