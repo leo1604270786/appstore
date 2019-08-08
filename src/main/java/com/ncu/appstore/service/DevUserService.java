@@ -14,5 +14,5 @@ public interface DevUserService {
     public DevUser addDevUser(DevUser devUser);
     public DevUser findDevUserByEmail(String email);
     public DevUser findDevUserByCode(String devcode);
-
+    public int updateDevUser(DevUser devUser);
 }
