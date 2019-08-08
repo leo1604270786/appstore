@@ -26,31 +26,95 @@
           a.modifyDate,
           a.logoLocPath,
           a.versionId,
-          a.logoWebPath
+          a.logoWebPath,
+          dev.`devName`,
+          app1.`categoryName` AS cat1,
+          app1.`parentId` AS parent1,
+          app2.`categoryName` cat2,
+          app2.`parentId` AS parent2,
+          app3.`categoryName` cat3,
+          app3.`parentId` AS parent3,
+          data_status.`valueName` AS statusValue,
+          data_floatformid.`valueName` AS floatformValue,
+          ver.versionNo,
+          ver.versionInfo,
+          ver.versionSize,
+          ver.apkFileName
     </sql>
-    <select id="page" resultType="AppInfo" parameterType="java.util.Map">
+    <!-- appInfo表结果映射 -->
+    <resultMap id="appInfoMap" type="AppInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="softwareName" property="softwarename"/>
+        <result column="APKName" property="apkname"/>
+        <result column="supportROM" property="supportrom"/>
+        <result column="interfaceLanguage" property="interfacelanguage"/>
+        <result column="softWareSize" property="softwaresize"/>
+        <result column="appInfo" property="appinfo"/>
+        <result column="downloads" property="downloads"/>
+        <association property="appversion" javaType="AppVersion">
+            <id column="versionID" property="id"/>
+            <result column="versionNo" property="versionno"/>
+            <result column="versionSize" property="versionno"/>
+            <result column="apkFileName" property="apkfilename"/>
+        </association>
+        <association property="devUser" javaType="DevUser">
+            <id column="devId" jdbcType="BIGINT" property="id"/>
+            <result column="devName" property="devname"/>
+        </association>
+        <association property="status" javaType="DataDictionary">
+            <id column="status" jdbcType="BIGINT" property="id"/>
+            <result column="statusValue" property="valuename"/>
+        </association>
+        <association property="floatformid" javaType="DataDictionary">
+            <id column="floatFormId" jdbcType="BIGINT" property="id"/>
+            <result column="floatformValue" property="valuename"/>
+        </association>
+        <association property="categorylevel1" javaType="AppCategory">
+            <id column="categoryLevel1" jdbcType="BIGINT" property="id"/>
+            <result column="cat1" property="categoryname"/>
+            <result column="parent1" property="parentid"/>
+        </association>
+        <association property="categorylevel2" javaType="AppCategory">
+            <id column="categoryLevel2" jdbcType="BIGINT" property="id"/>
+            <result column="cat2" property="categoryname"/>
+            <result column="parent2" property="parentid"/>
+        </association>
+        <association property="categorylevel3" javaType="AppCategory">
+            <id column="categoryLevel3" jdbcType="BIGINT" property="id"/>
+            <result column="cat3" property="categoryname"/>
+            <result column="parent3" property="parentid"/>
+        </association>
+    </resultMap>
+    <select id="page" resultMap="appInfoMap" parameterType="java.util.Map">
         SELECT
         <include refid="appInfoColumns"/>
         FROM
         app_info AS a
+        LEFT JOIN dev_user AS dev ON a.devId = dev.id
+        LEFT JOIN data_dictionary AS data_status ON a.`status` = data_status.id
+        LEFT JOIN data_dictionary AS data_floatformid ON a.`floatFormId` = data_floatformid.id
+        LEFT JOIN app_category AS app1 ON a.`categoryLevel1` = app1.`id`
+        LEFT JOIN app_category AS app2 ON a.`categoryLevel2` = app2.`id`
+        LEFT JOIN app_category AS app3 ON a.`categoryLevel3` = app3.`id`
+        LEFT JOIN app_version AS ver ON a.versionId = ver.id
         <where>
             <if test="pageParams.softwarename != null and pageParams.softwarename != ''">
                 AND a.softwareName LIKE CONCAT('%',#{pageParams.softwarename},'%')
             </if>
-            <if test="pageParams.status != null and pageParams.status != ''">
-                AND a.status LIKE CONCAT('%',#{pageParams.status},'%')
+            <if test="pageParams.status != null and pageParams.status.id != ''">
+                AND a.status = #{pageParams.status.id}
             </if>
-            <if test="pageParams.floatformid != null and pageParams.floatformid != ''">
-                AND a.floatformid LIKE CONCAT('%',#{pageParams.floatformid},'%')
+            <if test="pageParams.floatformid != null and pageParams.floatformid.id != ''">
+                AND a.floatformid = #{pageParams.floatformid.id}
             </if>
-            <if test="pageParams.categorylevel1 != null and pageParams.categorylevel1 != ''">
-                AND a.categoryLevel1 = #{pageParams.categorylevel1}
+            <if test="pageParams.categorylevel1 != null and pageParams.categorylevel1.id != ''">
+                AND a.categoryLevel1 = #{pageParams.categorylevel1.id}
             </if>
-            <if test="pageParams.categorylevel2 != null and pageParams.categorylevel2 != ''">
-                AND a.categoryLevel2 = #{pageParams.categorylevel2}
+            <if test="pageParams.categorylevel2 != null and pageParams.categorylevel2.id != ''">
+                AND a.categoryLevel2 = #{pageParams.categorylevel2.id}
             </if>
-            <if test="pageParams.categorylevel3 != null and pageParams.categorylevel3 != ''">
-                AND a.categoryLevel3 = #{pageParams.categorylevel3}
+            <if test="pageParams.categorylevel3 != null and pageParams.categorylevel3.id != ''">
+                AND a.categoryLevel3 = #{pageParams.categorylevel3.id}
             </if>
         </where>
         LIMIT #{start}, #{length}

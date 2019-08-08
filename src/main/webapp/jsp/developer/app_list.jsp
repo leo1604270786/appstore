@@ -15,12 +15,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                App信息管理维护
+                App信息维护
                 <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li class="active">App信息管理维护</li>
+                <li class="active">App信息维护</li>
             </ol>
         </section>
         <!-- Main content -->
@@ -53,7 +53,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="status" class="form-control">
-                                                    <option>请选择</option>
+                                                    <option value="">请选择</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="floatformid" class="form-control">
-                                                    <option>请选择</option>
+                                                    <option value="">请选择</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -77,7 +77,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="categorylevel1" class="form-control">
-                                                    <option>请选择</option>
+                                                    <option value="">--请选择--</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -88,7 +88,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="categorylevel2" class="form-control">
-                                                    <option>请选择</option>
+                                                    <option value="">--请选择--</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -99,7 +99,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="categorylevel3" class="form-control">
-                                                    <option>请选择</option>
+                                                    <option value="">--请选择--</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -159,15 +159,16 @@
 <script>
     var dataTable;
     $(function () {
+        //初始化DataTables
         var columns = [
             {"data": "softwarename"},
             {"data": "apkname"},
             {"data": "softwaresize"},
-            {"data": "floatformid"},
-            {"data": "categorylevel3"},
-            {"data": "status"},
+            {"data": "floatformid.valuename"},
+            {"data": "categorylevel.categoryname"},
+            {"data": "status.valuename"},
             {"data": "downloads"},
-            {"data": "versionid"},
+            {"data": "appversion.versionno"},
             {
                 "data": function (row, type, val, meta) {
                     var detaleUrl = "/user/detail?id=" + row.id;
@@ -178,26 +179,86 @@
             }
         ];
         dataTable = App.initDataTables("/appstore"+"/app/page",columns);
+        //获取分类列表
+        var category = JSON.parse(App.getCategory("level1",""));
+        //遍历分类列表，加入到下拉框中
+        $.each(category, function (index, data) {
+            $("#categorylevel1").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+        });
+        //console.log(category);
+        //为一级分类添加自动获取下级分类事件
+        $("#categorylevel1").change(function(){
+            //清空下拉框
+            $("#categorylevel2").empty();
+            //加入第一个请选择
+            $("#categorylevel2").append('<option value="">--请选择--</option>');
+            var opt=$("#categorylevel1").val();
+            if (opt !== '') {
+                //获取分类列表
+                var category = JSON.parse(App.getCategory("level2",opt));
+                //遍历分类列表，加入到下拉框中
+                $.each(category, function (index, data) {
+                    $("#categorylevel2").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+                });
+            }
+        });
+        //为二级分类添加自动获取下级分类事件
+        $("#categorylevel2").change(function(){
+            //清空下拉框
+            $("#categorylevel3").empty();
+            //加入第一个请选择
+            $("#categorylevel3").append('<option value="">--请选择--</option>');
+            var opt=$("#categorylevel2").val();
+            if (opt !== '') {
+                //获取分类列表
+                var category = JSON.parse(App.getCategory("level3",opt));
+                //遍历分类列表，加入到下拉框中
+                $.each(category, function (index, data) {
+                    $("#categorylevel3").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+                });
+            }
+        });
     });
     function search() {
         var softwarename = $("#softwarename").val();
-        /*var status = $("#status").val();
+        var status = $("#status").val();
         var floatformid = $("#floatformid").val();
         var categorylevel1 = $("#categorylevel1").val();
         var categorylevel2 = $("#categorylevel2").val();
-        var categorylevel3 = $("#categorylevel3").val();*/
-
+        var categorylevel3 = $("#categorylevel3").val();
+        //查询参数
         var param = {
-            "softwarename": softwarename
-           /* "status": status,
-            "floatformid": floatformid,
-            "categorylevel1": categorylevel1,
-            "categorylevel2": categorylevel2,
-            "categorylevel3": categorylevel3*/
+            "softwarename":softwarename,
+            "status.id":status,
+            "floatformid.id":floatformid,
+            "categorylevel1.id":categorylevel1,
+            "categorylevel2.id":categorylevel2,
+            "categorylevel3.id":categorylevel3
         };
-
-        dataTable.settings()[0].ajax.data = param;
-        dataTable.ajax.reload();
+        if (softwarename === ''){
+            delete param.softwarename;
+        }
+        if (status === ''){
+            delete param["status.id"];
+        }
+        if (floatformid === ''){
+            delete param["floatformid.id"];
+        }
+        if (categorylevel1 === ''){
+            delete param["categorylevel1.id"];
+        }
+        if (categorylevel2 === ''){
+            delete param["categorylevel2.id"];
+        }
+        if (categorylevel3 === ''){
+            delete param["categorylevel3.id"];
+        }
+        console.log(param);
+        if (param !== {}){
+            //设置参数，重新加载
+            dataTable.settings()[0].ajax.data = param;
+            dataTable.ajax.reload();
+        }
     }
 </script>
 </body>

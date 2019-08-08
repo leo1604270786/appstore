@@ -31,19 +31,23 @@ public class AppInfo implements Serializable {
 
     private Date updatedate;//更新时间
 
-    private Long devid;//开发者Id
+    //private Long devid;//开发者Id
+    private DevUser devUser;
 
     private String appinfo;//app基本信息
 
-    private Long status;//状态（对应：data_dictionary，1 待审核 2 审核通过 3 审核不通过 4 已上架 5 已下架）
+    //private Long status;//状态（对应：data_dictionary，1 待审核 2 审核通过 3 审核不通过 4 已上架 5 已下架）
+    private DataDictionary status;
 
     private Date onsaledate;//上架时间
 
     private Date offsaledate;//下架时间
 
-    private Long floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
+    //private Long floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
+    private DataDictionary floatformid;
 
-    private Long categorylevel3;//三级分类id（来自data_dictionary）
+    //private Long categorylevel3;//三级分类id（来自app_category）
+    private AppCategory categorylevel3;
 
     private Long downloads;//下载量
 
@@ -55,13 +59,16 @@ public class AppInfo implements Serializable {
 
     private Date modifydate;//更新时间
 
-    private Long categorylevel1;//一级分类id（来自data_dictionary）
+    //private Long categorylevel1;//一级分类id（来自app_category）
+    private AppCategory categorylevel1;
 
-    private Long categorylevel2;//二级分类id（来自data_dictionary）
+    //private Long categorylevel2;//二级分类id（来自app_category）
+    private AppCategory categorylevel2;
 
     private String logolocpath;//logo存储在本地电脑的路径
 
-    private Long versionid;//版本id
+    //private Long versionid;//版本id
+    private AppVersion appversion;
 
     private String logowebpath;//logo在web服务器存储路径
 
@@ -121,28 +128,12 @@ public class AppInfo implements Serializable {
         this.updatedate = updatedate;
     }
 
-    public Long getDevid() {
-        return devid;
-    }
-
-    public void setDevid(Long devid) {
-        this.devid = devid;
-    }
-
     public String getAppinfo() {
         return appinfo;
     }
 
     public void setAppinfo(String appinfo) {
         this.appinfo = appinfo == null ? null : appinfo.trim();
-    }
-
-    public Long getStatus() {
-        return status;
-    }
-
-    public void setStatus(Long status) {
-        this.status = status;
     }
 
     public Date getOnsaledate() {
@@ -159,22 +150,6 @@ public class AppInfo implements Serializable {
 
     public void setOffsaledate(Date offsaledate) {
         this.offsaledate = offsaledate;
-    }
-
-    public Long getFloatformid() {
-        return floatformid;
-    }
-
-    public void setFloatformid(Long floatformid) {
-        this.floatformid = floatformid;
-    }
-
-    public Long getCategorylevel3() {
-        return categorylevel3;
-    }
-
-    public void setCategorylevel3(Long categorylevel3) {
-        this.categorylevel3 = categorylevel3;
     }
 
     public Long getDownloads() {
@@ -217,21 +192,6 @@ public class AppInfo implements Serializable {
         this.modifydate = modifydate;
     }
 
-    public Long getCategorylevel1() {
-        return categorylevel1;
-    }
-
-    public void setCategorylevel1(Long categorylevel1) {
-        this.categorylevel1 = categorylevel1;
-    }
-
-    public Long getCategorylevel2() {
-        return categorylevel2;
-    }
-
-    public void setCategorylevel2(Long categorylevel2) {
-        this.categorylevel2 = categorylevel2;
-    }
 
     public String getLogolocpath() {
         return logolocpath;
@@ -241,20 +201,69 @@ public class AppInfo implements Serializable {
         this.logolocpath = logolocpath == null ? null : logolocpath.trim();
     }
 
-    public Long getVersionid() {
-        return versionid;
-    }
-
-    public void setVersionid(Long versionid) {
-        this.versionid = versionid;
-    }
-
     public String getLogowebpath() {
         return logowebpath;
     }
 
     public void setLogowebpath(String logowebpath) {
         this.logowebpath = logowebpath == null ? null : logowebpath.trim();
+    }
+
+
+    public DevUser getDevUser() {
+        return devUser;
+    }
+
+    public void setDevUser(DevUser devUser) {
+        this.devUser = devUser;
+    }
+
+    public DataDictionary getStatus() {
+        return status;
+    }
+
+    public void setStatus(DataDictionary status) {
+        this.status = status;
+    }
+
+    public DataDictionary getFloatformid() {
+        return floatformid;
+    }
+
+    public void setFloatformid(DataDictionary floatformid) {
+        this.floatformid = floatformid;
+    }
+
+    public AppCategory getCategorylevel3() {
+        return categorylevel3;
+    }
+
+    public void setCategorylevel3(AppCategory categorylevel3) {
+        this.categorylevel3 = categorylevel3;
+    }
+
+    public AppCategory getCategorylevel1() {
+        return categorylevel1;
+    }
+
+    public void setCategorylevel1(AppCategory categorylevel1) {
+        this.categorylevel1 = categorylevel1;
+    }
+
+    public AppCategory getCategorylevel2() {
+        return categorylevel2;
+    }
+
+    public void setCategorylevel2(AppCategory categorylevel2) {
+        this.categorylevel2 = categorylevel2;
+    }
+
+    public AppVersion getAppversion() {
+        return appversion;
+    }
+
+    public void setAppversion(AppVersion appversion) {
+        this.appversion = appversion;
     }
 
     @Override
@@ -267,7 +276,7 @@ public class AppInfo implements Serializable {
                 ", interfacelanguage='" + interfacelanguage + '\'' +
                 ", softwaresize=" + softwaresize +
                 ", updatedate=" + updatedate +
-                ", devid=" + devid +
+                ", devUser=" + devUser +
                 ", appinfo='" + appinfo + '\'' +
                 ", status=" + status +
                 ", onsaledate=" + onsaledate +
@@ -282,7 +291,6 @@ public class AppInfo implements Serializable {
                 ", categorylevel1=" + categorylevel1 +
                 ", categorylevel2=" + categorylevel2 +
                 ", logolocpath='" + logolocpath + '\'' +
-                ", versionid=" + versionid +
                 ", logowebpath='" + logowebpath + '\'' +
                 '}';
     }

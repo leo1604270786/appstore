@@ -76,6 +76,26 @@ var App = function () {
         $.extend(defaultDropzoneOpts,opts);
         new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
     };
+    var handlerGetCategory = function (level,parent) {
+        var url = "/appstore/app/category?level="+level;
+        if (parent !== ''){
+            url += ("&parent="+parent);
+        }
+        var categoryList;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            async: false,
+            success: function(msg){
+                categoryList = JSON.stringify(msg);
+                //alert(JSON.stringify(msg));
+            }
+        });
+        return categoryList;
+    };
+
+
     return{
         //初始化DataTables
         initDataTables:function (url, columns) {
@@ -84,6 +104,10 @@ var App = function () {
         //初始化Dropzone
         initDropzone:function (opts) {
             handlerInitDropzone(opts);
+        },
+        //获取分类列表
+        getCategory: function (level,parent) {
+            return handlerGetCategory(level,parent);
         }
     }
 }();

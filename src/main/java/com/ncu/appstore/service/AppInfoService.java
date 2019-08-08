@@ -1,5 +1,6 @@
 package com.ncu.appstore.service;
 
+import com.ncu.appstore.dto.AppInfoDTO;
 import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppInfo;
@@ -19,7 +20,7 @@ public interface AppInfoService {
      * @param appInfo 封装查询条件
      * @return
      */
-    PageInfo<AppInfo> page(int draw, int start, int length, AppInfo appInfo);
+    PageInfo<AppInfoDTO> page(int draw, int start, int length, AppInfo appInfo);
 
     /**
      * 通过id查询app基础信息
