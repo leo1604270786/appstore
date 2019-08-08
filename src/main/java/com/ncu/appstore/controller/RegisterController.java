@@ -72,10 +72,8 @@ public class RegisterController extends BaseController {
             //验证码错误
             map.put("message", "fail");
         }
-
         return map;
     }
-
     @RequestMapping("/register")
     public String register(Model model, @RequestParam(value = "devcode" ,required = true) String devcode,
                            @RequestParam(value = "devname" ,required = true) String devname,
@@ -90,6 +88,6 @@ public class RegisterController extends BaseController {
         devUser.setCreationdate(new java.util.Date());
         devUserService.addDevUser(devUser);
         model.addAttribute("registerMessage","注册成功");
-        return "../register/registerSuccess";
+        return "register/registerSuccess";
     }
 }
