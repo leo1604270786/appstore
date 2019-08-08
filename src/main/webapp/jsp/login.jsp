@@ -42,15 +42,15 @@
 
         <form action="/login" method="post" id="normal_form">
             <div class="form-group has-feedback">
-                <input id="email" name="devemail" type="email" class="form-control" placeholder="邮箱" onfocus="cleanPop()">
+                <input id="email" name="devemail" type="email" class="form-control" placeholder="邮箱"  value="${devemail}">
                 <c:if test="${error eq 'email_fail'}">
                     <span id="email_span" style="color: red" >邮箱不存在</span>
                 </c:if>
 
             </div>
             <div class="form-group has-feedback">
-                <input id="pwd" type="password" class="form-control" placeholder="密码" name="devpassword" >
-                <c:if test="${error eq 'email_fail'}">
+                <input id="pwd" type="password" class="form-control" placeholder="密码" name="devpassword" value="${devpassword}">
+                <c:if test="${error eq 'pwd_fail'}">
                     <span id="pwd_span" style="color: red" >密码错误</span>
                 </c:if>
 
@@ -149,7 +149,6 @@
                     }
                 }
             });
-
         }
         return flag_c;
     }
@@ -159,5 +158,6 @@
         }
     }
 </script>
+<jsp:include page="./includes/footer.jsp"/>
 </body>
 </html>
