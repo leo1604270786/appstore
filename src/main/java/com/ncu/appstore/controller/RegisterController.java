@@ -87,6 +87,7 @@ public class RegisterController extends BaseController {
         devUser.setDevemail(devemail);
         devUser.setDevname(devname);
         devUser.setDevpassword(devpassword);
+        devUser.setCreationdate(new java.util.Date());
         devUserService.addDevUser(devUser);
         model.addAttribute("registerMessage","注册成功");
         return "../register/registerSuccess";

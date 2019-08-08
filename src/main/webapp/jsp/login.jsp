@@ -38,28 +38,44 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">登录</p>
 
-        <form action="/login" method="post">
+        <form action="/login" method="post" id="normal_form">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <input id="email" name="devemail" type="email" class="form-control" placeholder="邮箱" onfocus="cleanPop()">
+                <c:if test="${error eq 'email_fail'}">
+                    <span id="email_span" style="color: red" >邮箱不存在</span>
+                </c:if>
+
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <input id="pwd" type="password" class="form-control" placeholder="密码" name="devpassword" >
+                <c:if test="${error eq 'email_fail'}">
+                    <span id="pwd_span" style="color: red" >密码错误</span>
+                </c:if>
+
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" placeholder="验证码" name="code" id="code"  >
+                <span id="code_span" style="color: red"></span>
+            </div>
+            <div>
+                <img id="captchaImg" style="CURSOR: pointer" onclick="changeCaptcha()"
+                     title="看不清楚?请点击刷新验证码!" align='absmiddle' src="${ctx}/captchaServlet"
+                     height="18" width="55">
+
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> Remember Me
+                            <input type="checkbox"> 记住我
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="button" class="btn btn-primary btn-block btn-flat" onclick="normal_login();">登录</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -74,8 +90,8 @@
         </div>
         <!-- /.social-auth-links -->
 
-        <a href="/findOldPassword">I forgot my password</a><br>
-        <a href="../jsp/register.jsp" class="text-center">Register a new membership</a>
+        <a href="/findOldPassword">忘记密码</a><br>
+        <a href="../jsp/register.jsp" class="text-center">注册会员</a>
 
     </div>
     <!-- /.login-box-body -->
@@ -96,6 +112,52 @@
             increaseArea: '20%' /* optional */
         });
     });
+    /*//添加文本框点击事件
+    function cleanPop(){
+        if($("this").attr("name")=="devpassword"){
+            $("#pwd_span").text("");
+        }
+        if($("this").attr("name")=="devemail"){
+            $("#email_span").text("");
+        }
+    }*/
+    //更换验证码
+    function changeCaptcha() {
+        $("#captchaImg").attr('src', '${ctx}/captchaServlet?t=' + (new Date().getTime()));
+    }
+    //验证码校验
+    var flag_c = false;
+    function checkCode() {
+        var code = $("#code").val();
+        code = code.replace(/^\s+|\s+$/g,"");
+        if(code == ""){
+            $("#code_span").text("请输入验证码！").css("color","red");
+            flag_c = false;
+        }else{
+            $.ajax({
+                type: 'post',
+                url: '/checkCode',
+                data: {"code": code},
+                dataType: 'json',
+                success: function (data) {
+                    var val = data['message'];
+                    if (val == "success") {
+                        flag_c = true;
+                    }else {
+                        $("#code_span").text("验证码错误！").css("color","red");
+                        flag_c = false;
+                    }
+                }
+            });
+
+        }
+        return flag_c;
+    }
+    function normal_login() {
+        if( checkCode()) {
+            $("#normal_form").submit();
+        }
+    }
 </script>
 </body>
 </html>

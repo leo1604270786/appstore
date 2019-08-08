@@ -20,13 +20,26 @@ public class LoginController extends BaseController {
                         @RequestParam(value = "devpassword", required=true) String devpassword)
     {
         DevUser devUser = devUserService.findDevUserByEmail(devemail);
-        if(devUser==null||devUser.getDevpassword().equals(devpassword)==false){
-            model.addAttribute("validationMessage","邮箱不存在或密码错误");
+        if(devUser==null){
+            model.addAttribute("error","email_fail");
+            return "login";
+        }else if(devUser.getDevpassword().equals(devpassword)==false){
+            model.addAttribute("error","pwd_fail");
             return "login";
         }
         getSession().setAttribute("devUser",devUser);
         model.addAttribute("devUser",devUser);
         return "index";
     }
-
+    /**
+     * 退出登录
+     * @param model
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String exit(Model model) {
+        getSession().removeAttribute( "devUser" );
+        getSession().invalidate();
+        return "index";
+    }
 }
