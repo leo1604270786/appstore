@@ -31,4 +31,8 @@ public class DevUserServiceImpl implements DevUserService {
         devUser.setDevcode(devcode);
         return devUserMapper.selectOne(devUser);
     }
+    public int updateDevUser(DevUser devUser){
+       return devUserMapper.updateByPrimaryKey(devUser);
+        //return true;
+    }
 }
