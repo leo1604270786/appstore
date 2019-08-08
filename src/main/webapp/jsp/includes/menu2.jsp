@@ -30,27 +30,27 @@
             <li class="header">功能菜单</li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-apple"></i> <span>App应用管理</span>
+                    <i class="fa fa-apple"></i> <span>App管理</span>
                     <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${pageContext.request.contextPath}/app/list"><i class="fa fa-circle-o"></i> App基础信息维护</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> App版本信息维护</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> App发布</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/backend/app_list.jsp"><i class="fa fa-circle-o"></i> App基础信息维护</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> App审核</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 广告推广</a></li>
                 </ul>
             </li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-book"></i> <span>广告管理</span>
+                    <i class="fa fa-book"></i> <span>用户管理</span>
                     <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 广告管理1</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 广告管理2</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 注册</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> 注销</a></li>
                 </ul>
             </li>
         </ul>
