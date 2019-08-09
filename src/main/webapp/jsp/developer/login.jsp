@@ -54,7 +54,7 @@
                 </c:if>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" placeholder="验证码" name="code" id="code"  >
+                <input type="text" class="form-control" placeholder="验证码" name="code" id="code" onblur="checkCode()">
                 <span id="code_span" style="color: red"></span>
             </div>
             <div>
@@ -150,9 +150,7 @@
         return flag_c;
     }
     function normal_login() {
-        if( checkCode()) {
             $("#normal_form").submit();
-        }
     }
 </script>
 <jsp:include page="../includes/footer.jsp"/>

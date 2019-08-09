@@ -31,7 +31,7 @@
 
                                 <p>
                                         ${backendUser.usercode}-管理员
-                                    <small><fmt:formatDate value="${backendUser.creationdate}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
+
                                 </p>
                             </li>
                             <!-- Menu Footer-->
@@ -59,10 +59,8 @@
                             <!-- User image -->
                             <li class="user-header">
                                 <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">
-
                                 <p>
                                         ${devUser.devcode}-开发者
-                                    <small><fmt:formatDate value="${devUser.creationdate}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
