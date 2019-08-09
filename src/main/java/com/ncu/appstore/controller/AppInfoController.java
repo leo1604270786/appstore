@@ -8,15 +8,17 @@ import com.ncu.appstore.pojo.AppInfo;
 import com.ncu.appstore.pojo.DataDictionary;
 import com.ncu.appstore.service.AppCategoryService;
 import com.ncu.appstore.service.AppInfoService;
-import org.springframework.beans.BeanUtils;
+import com.ncu.appstore.service.DataDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +34,8 @@ public class AppInfoController extends BaseController {
     private AppInfoService appInfoService;
     @Autowired
     private AppCategoryService appCategoryService;
+    @Autowired
+    private DataDictionaryService dataDictionaryService;
 
     @ModelAttribute
     private AppInfo getAppInfo(Long id){
@@ -80,9 +84,6 @@ public class AppInfoController extends BaseController {
     }
     /**
      * 分页查新app信息
-     * @param draw
-     * @param start 开始记录
-     * @param length 每页长度
      * @return
      */
     @ResponseBody
@@ -120,6 +121,16 @@ public class AppInfoController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "status", method = RequestMethod.GET)
     public List<DataDictionary> getStatus(){
-        return null;
+        return dataDictionaryService.getDataDictionaryByTypeCode("status");
+    }
+
+    /**
+     * 获取app平台
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "floar", method = RequestMethod.GET)
+    public List<DataDictionary> getFloar(){
+        return dataDictionaryService.getDataDictionaryByTypeCode("floar");
     }
 }

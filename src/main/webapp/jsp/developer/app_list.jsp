@@ -53,7 +53,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="status" class="form-control">
-                                                    <option value="">请选择</option>
+                                                    <option value="">--请选择--</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -64,7 +64,7 @@
 
                                             <div class="col-sm-8">
                                                 <select id="floatformid" class="form-control">
-                                                    <option value="">请选择</option>
+                                                    <option value="">--请选择--</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -118,7 +118,6 @@
                         </div>
                         <div class="box-body">
                             <a href="${pageContext.request.contextPath}/app/form" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus">新增</i></a>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-default btn-sm" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash">删除</i></button>&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-download">导入</i></a>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-upload">导出</i></a>&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-primary btn-sm" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-download">搜索</i></button>
@@ -190,8 +189,10 @@
         $("#categorylevel1").change(function(){
             //清空下拉框
             $("#categorylevel2").empty();
+            $("#categorylevel3").empty();
             //加入第一个请选择
             $("#categorylevel2").append('<option value="">--请选择--</option>');
+            $("#categorylevel3").append('<option value="">--请选择--</option>');
             var opt=$("#categorylevel1").val();
             if (opt !== '') {
                 //获取分类列表
@@ -217,6 +218,15 @@
                     $("#categorylevel3").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
                 });
             }
+        });
+        //获取状态列表，所属平台列表
+        var status = JSON.parse(App.getDictionary("/appstore/app/status"));
+        $.each(status, function (index, data) {
+            $("#status").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
+        });
+        var floar = JSON.parse(App.getDictionary("/appstore/app/floar"));
+        $.each(floar, function (index, data) {
+            $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
         });
     });
     function search() {

@@ -3,9 +3,8 @@ package com.ncu.appstore.pojo;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import org.springframework.stereotype.Component;
 
 import javax.persistence.GeneratedValue;
@@ -31,23 +30,20 @@ public class AppInfo implements Serializable {
 
     private Date updatedate;//更新时间
 
-    //private Long devid;//开发者Id
+    @Column(name = "devId")
     private DevUser devUser;
 
     private String appinfo;//app基本信息
 
-    //private Long status;//状态（对应：data_dictionary，1 待审核 2 审核通过 3 审核不通过 4 已上架 5 已下架）
-    private DataDictionary status;
+    private DataDictionary status;//状态（对应：data_dictionary，1 待审核 2 审核通过 3 审核不通过 4 已上架 5 已下架）
 
     private Date onsaledate;//上架时间
 
     private Date offsaledate;//下架时间
 
-    //private Long floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
-    private DataDictionary floatformid;
+    private DataDictionary floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
 
-    //private Long categorylevel3;//三级分类id（来自app_category）
-    private AppCategory categorylevel3;
+    private AppCategory categorylevel3;//三级分类id（来自app_category）
 
     private Long downloads;//下载量
 
@@ -59,16 +55,14 @@ public class AppInfo implements Serializable {
 
     private Date modifydate;//更新时间
 
-    //private Long categorylevel1;//一级分类id（来自app_category）
-    private AppCategory categorylevel1;
+    private AppCategory categorylevel1;//一级分类id（来自app_category）
 
-    //private Long categorylevel2;//二级分类id（来自app_category）
-    private AppCategory categorylevel2;
+    private AppCategory categorylevel2;//二级分类id（来自app_category）
 
     private String logolocpath;//logo存储在本地电脑的路径
 
-    //private Long versionid;//版本id
-    private AppVersion appversion;
+    @Column(name = "versionId")
+    private AppVersion appversion;//版本id
 
     private String logowebpath;//logo在web服务器存储路径
 

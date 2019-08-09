@@ -6,6 +6,8 @@
 <head>
     <title>AppStore | 控制面板</title>
     <jsp:include page="../includes/header.jsp"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/plugins/dropzone/basic.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/plugins/dropzone/dropzone.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -40,106 +42,107 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form:form id="inputForm" cssClass="form-horizontal" action="/app/save" method="post" modelAttribute="appInfo">
+                    <form:form id="appInputForm" cssClass="form-horizontal" action="${pageContext.request.contextPath}/app/save" method="post" modelAttribute="appInfo">
                         <form:hidden path="id"/>
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="softwarename" class="col-sm-2 control-label">软件名称*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="softwarename" cssClass="form-control required" placeholder="请输入软件名称"/>
+                                    <form:input path="softwarename" cssClass="form-control" placeholder="请输入软件名称" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="apkname" class="col-sm-2 control-label">APK名称*</label>
 
                                 <div class="col-sm-10">
-                                    <form:password path="apkname" cssClass="form-control required" placeholder="请输入APK名称"/>
+                                    <form:input path="apkname" cssClass="form-control" placeholder="请输入APK名称" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="supportrom" class="col-sm-2 control-label">支持ROM*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="supportrom" cssClass="form-control required" placeholder="请输入支持的ROM"/>
+                                    <form:input path="supportrom" cssClass="form-control" placeholder="请输入支持的ROM" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="interfacelanguage" class="col-sm-2 control-label">界面语言*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="interfacelanguage" cssClass="form-control required" placeholder="请输入界面语言"/>
+                                    <form:input path="interfacelanguage" cssClass="form-control" placeholder="请输入界面语言" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="softwaresize" class="col-sm-2 control-label">软件大小*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="softwaresize" cssClass="form-control required" placeholder="请输入软件大小"/>
+                                    <form:input type="number" min="0.0" step="0.01" path="softwaresize" cssClass="form-control" placeholder="请输入软件大小,单位为MB" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="downloads" class="col-sm-2 control-label">下载次数*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="downloads" cssClass="form-control required" placeholder="请输入下载次数"/>
+                                    <form:input type="number" path="downloads" cssClass="form-control" placeholder="请输入下载次数" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="downloads" class="col-sm-2 control-label">所属平台*</label>
+                                <label for="floatformid" class="col-sm-2 control-label">所属平台*</label>
 
                                 <div class="col-sm-10">
-                                    <form:select path="floatformid" cssClass="form-control required">
-                                        <for:option value="--请选择--"/>
-                                    </form:select>
+                                    <select id="floatformid" name="floatformid" class="form-control" required="required">
+                                        <option value="">--请选择--</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="downloads" class="col-sm-2 control-label">一级分类*</label>
+                                <label for="categorylevel1" class="col-sm-2 control-label">一级分类*</label>
 
                                 <div class="col-sm-10">
-                                    <form:select path="categorylevel1" cssClass="form-control required">
-                                        <for:option value="--请选择--"/>
-                                    </form:select>
+                                    <select id="categorylevel1" name="categorylevel1" class="form-control" required="required">
+                                        <option value="">--请选择--</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="downloads" class="col-sm-2 control-label">二级分类*</label>
+                                <label for="categorylevel2" class="col-sm-2 control-label">二级分类*</label>
 
                                 <div class="col-sm-10">
-                                    <form:select path="categorylevel2" cssClass="form-control required">
-                                        <for:option value="--请选择--"/>
-                                    </form:select>
+                                    <select id="categorylevel2" name="categorylevel2" class="form-control" required="required">
+                                        <option value="">--请选择--</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="downloads" class="col-sm-2 control-label">三级分类*</label>
+                                <label for="categorylevel3" class="col-sm-2 control-label">三级分类*</label>
 
                                 <div class="col-sm-10">
-                                    <form:select path="categorylevel3" cssClass="form-control required">
-                                        <for:option value="--请选择--"/>
-                                    </form:select>
+                                    <select id="categorylevel3" name="categorylevel3" class="form-control" required="required">
+                                        <option value="">--请选择--</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="status" class="col-sm-2 control-label">App状态*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="status" cssClass="form-control required disabled" value="待审核"/>
+                                    <form:input path="status" cssClass="form-control" value="待审核" readonly="true"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="appinfo" class="col-sm-2 control-label">应用简介*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="appinfo" cssClass="form-control required disabled" placeholder="请输入应用简介"/>
+                                    <form:textarea path="appinfo" cssClass="form-control" placeholder="请输入应用简介" required="required"/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="logofile" class="col-sm-2 control-label">应用简介*</label>
+                                <label for="logowebpath" class="col-sm-2 control-label">LOGO图片*</label>
 
                                 <div class="col-sm-10">
-                                    <input type="file" id="logofile"/>
+                                    <form:input path="logowebpath" cssClass="form-control" placeholder="LOGO图片" required="required"/>
+<%--                                    <div id="dropz" class="dropzone"></div>--%>
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -156,5 +159,65 @@
     <jsp:include page="../includes/copyright.jsp"/>
 </div>
 <jsp:include page="../includes/footer.jsp"/>
+<!-- Dropzone -->
+<script src="${pageContext.request.contextPath}/static/plugins/dropzone/min/dropzone.min.js"></script>
+<script>
+    //获取分类列表
+    var category = JSON.parse(App.getCategory("level1",""));
+    //遍历分类列表，加入到下拉框中
+    $.each(category, function (index, data) {
+        $("#categorylevel1").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+    });
+    //console.log(category);
+    //为一级分类添加自动获取下级分类事件
+    $("#categorylevel1").change(function(){
+        //清空下拉框
+        $("#categorylevel2").empty();
+        $("#categorylevel3").empty();
+        //加入第一个请选择
+        $("#categorylevel2").append('<option value="">--请选择--</option>');
+        $("#categorylevel3").append('<option value="">--请选择--</option>');
+        var opt=$("#categorylevel1").val();
+        if (opt !== '') {
+            //获取分类列表
+            var category = JSON.parse(App.getCategory("level2",opt));
+            //遍历分类列表，加入到下拉框中
+            $.each(category, function (index, data) {
+                $("#categorylevel2").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+            });
+        }
+    });
+    //为二级分类添加自动获取下级分类事件
+    $("#categorylevel2").change(function(){
+        //清空下拉框
+        $("#categorylevel3").empty();
+        //加入第一个请选择
+        $("#categorylevel3").append('<option value="">--请选择--</option>');
+        var opt=$("#categorylevel2").val();
+        if (opt !== '') {
+            //获取分类列表
+            var category = JSON.parse(App.getCategory("level3",opt));
+            //遍历分类列表，加入到下拉框中
+            $.each(category, function (index, data) {
+                $("#categorylevel3").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+            });
+        }
+    });
+    //获取平台信息
+    var floar = JSON.parse(App.getDictionary("/appstore/app/floar"));
+    $.each(floar, function (index, data) {
+        $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
+    });
+    //初始化Dropzone
+    App.initDropzone({
+        id: "#dropz",
+        url: "/appstore/app/upload",
+        init: function () {
+            this.on("success", function (file, data) {
+                $("#logowebpath").val(data.fileName);
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -119,4 +119,57 @@
         </where>
         LIMIT #{start}, #{length}
     </select>
+    <insert id="insert">
+        INSERT INTO app_info (
+          `softwareName`,
+          `APKName`,
+          `supportROM`,
+          `interfaceLanguage`,
+          `softWareSize`,
+          `updateDate`,
+          `devId`,
+          `appInfo`,
+          `status`,
+          `onSaleDate`,
+          `offSaleDate`,
+          `floatFormId`,
+          `categoryLevel3`,
+          `downloads`,
+          `createBy`,
+          `creationDate`,
+          `modifyBy`,
+          `modifyDate`,
+          `categoryLevel1`,
+          `categoryLevel2`,
+          `logoLocPath`,
+          `versionId`,
+          `logoWebPath`
+        )
+        VALUES
+          (
+            #{softwarename},
+            #{apkname},
+            #{supportrom},
+            #{interfacelanguage},
+            #{softwaresize},
+            #{updatedate},
+            #{devUser.id},
+            #{appinfo},
+            #{status.id},
+            #{onsaledate},
+            #{offsaledate},
+            #{floatformid.id},
+            #{categorylevel3.id},
+            #{downloads},
+            #{createby},
+            #{creationdate},
+            #{modifyby},
+            #{modifydate},
+            #{categorylevel1.id},
+            #{categorylevel2.id},
+            #{logolocpath},
+            #{appversion.id},
+            #{logowebpath}
+          )
+    </insert>
 </mapper>

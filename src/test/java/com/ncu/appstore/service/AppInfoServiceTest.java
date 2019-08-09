@@ -1,5 +1,6 @@
 package com.ncu.appstore.service;
 
+import com.ncu.appstore.BaseTestClass;
 import com.ncu.appstore.dto.AppInfoDTO;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppInfo;
@@ -19,11 +20,7 @@ import java.util.List;
  * @author: Leo
  * @create: 2019-08-08 10:26
  **/
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-context.xml","classpath:spring-mvc.xml","classpath:spring-context-mybatis.xml",
-        "classpath:spring-context-druid.xml"})
-@WebAppConfiguration("src/main/resources")
-public class AppInfoServiceTest {
+public class AppInfoServiceTest extends BaseTestClass {
 
     @Autowired
     private AppInfoService appInfoService;

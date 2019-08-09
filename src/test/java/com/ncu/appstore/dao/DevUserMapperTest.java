@@ -1,5 +1,6 @@
 package com.ncu.appstore.dao;
 
+import com.ncu.appstore.BaseTestClass;
 import com.ncu.appstore.pojo.DevUser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,11 +17,7 @@ import java.util.Date;
  * @author: Leo
  * @create: 2019-08-06 15:38
  **/
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-context.xml","classpath:spring-mvc.xml","classpath:spring-context-mybatis.xml",
-        "classpath:spring-context-druid.xml"})
-@WebAppConfiguration("src/main/resources")
-public class DevUserMapperTest {
+public class DevUserMapperTest extends BaseTestClass {
     @Autowired
     private DevUserMapper mapper;
     @Test

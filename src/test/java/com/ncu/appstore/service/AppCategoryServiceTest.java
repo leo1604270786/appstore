@@ -1,5 +1,6 @@
 package com.ncu.appstore.service;
 
+import com.ncu.appstore.BaseTestClass;
 import com.ncu.appstore.pojo.AppCategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,11 +17,7 @@ import java.util.List;
  * @author: Leo
  * @create: 2019-08-08 15:08
  **/
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-context.xml","classpath:spring-mvc.xml","classpath:spring-context-mybatis.xml",
-        "classpath:spring-context-druid.xml"})
-@WebAppConfiguration("src/main/resources")
-public class AppCategoryServiceTest {
+public class AppCategoryServiceTest extends BaseTestClass {
     @Autowired
     private AppCategoryService appCategoryService;
 

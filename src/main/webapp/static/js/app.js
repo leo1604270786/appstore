@@ -76,6 +76,12 @@ var App = function () {
         $.extend(defaultDropzoneOpts,opts);
         new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
     };
+    /**
+     * 获取类目信息
+     * @param level
+     * @param parent
+     * @returns {*}
+     */
     var handlerGetCategory = function (level,parent) {
         var url = "/appstore/app/category?level="+level;
         if (parent !== ''){
@@ -94,8 +100,35 @@ var App = function () {
         });
         return categoryList;
     };
-
-
+    /**
+     * 根据typeCode获取数据字典
+     * @param url
+     * @param typeCode
+     */
+    var handlerGetDictionary = function (url) {
+        var dictionary;
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'json',
+            async: false,
+            success: function(msg){
+                dictionary = JSON.stringify(msg);
+                //alert(JSON.stringify(msg));
+            }
+        });
+        return dictionary;
+    };
+    /*
+   * 初始化Dropzone
+   * */
+    var handlerInitDropzone = function (opts) {
+        //关闭Dropzone自动发现功能
+        Dropzone.autoDiscover = false;
+        //继承
+        $.extend(defaultDropzoneOpts,opts);
+        new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
+    };
     return{
         //初始化DataTables
         initDataTables:function (url, columns) {
@@ -108,6 +141,14 @@ var App = function () {
         //获取分类列表
         getCategory: function (level,parent) {
             return handlerGetCategory(level,parent);
+        },
+        //获取数据字典
+        getDictionary: function (url) {
+            return handlerGetDictionary(url);
+        },
+        //初始化Dropzone
+        initDropzone:function (opts) {
+            handlerInitDropzone(opts);
         }
     }
 }();

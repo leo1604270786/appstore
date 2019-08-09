@@ -9,4 +9,6 @@ import java.util.Map;
 public interface AppInfoMapper extends Mapper<AppInfo> {
 
     List<AppInfo> page(Map<String,Object> param);
+
+    int insert(AppInfo appInfo);
 }
