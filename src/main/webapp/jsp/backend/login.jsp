@@ -40,15 +40,16 @@
     <div class="login-box-body">
         <p class="login-box-msg">App信息管理平台用户登录</p>
 
-        <form action="/login" method="post" id="normal_form">
+        <form action="/login_backend" method="post" id="normal_form">
             <div class="form-group has-feedback">
-                <input id="email" name="devemail" type="email" class="form-control" placeholder="邮箱"  value="${devemail}">
-                <c:if test="${error eq 'email_fail'}">
-                    <span id="email_span" style="color: red" >邮箱不存在</span>
+                <input id="usercode" name="usercode" type="text" class="form-control" placeholder="账号"  value="${usercode}">
+                <c:if test="${error eq 'usercode_fail'}">
+                    <span id="usercode_span" style="color: red" >账号不存在</span>
                 </c:if>
+
             </div>
             <div class="form-group has-feedback">
-                <input id="pwd" type="password" class="form-control" placeholder="密码" name="devpassword" value="${devpassword}">
+                <input id="pwd" type="password" class="form-control" placeholder="密码" name="userpassword" value="${userpassword}">
                 <c:if test="${error eq 'pwd_fail'}">
                     <span id="pwd_span" style="color: red" >密码错误</span>
                 </c:if>

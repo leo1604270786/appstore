@@ -1,7 +1,9 @@
 package com.ncu.appstore.controller;
 
 import com.ncu.appstore.common.CodeCaptchaServlet;
+import com.ncu.appstore.pojo.BackendUser;
 import com.ncu.appstore.pojo.DevUser;
+import com.ncu.appstore.service.BackendUserService;
 import com.ncu.appstore.service.DevUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +25,28 @@ import java.util.Map;
 public class RegisterController extends BaseController {
     @Autowired
     private DevUserService devUserService;
+    @Autowired
+    private BackendUserService backendUserService;
     @RequestMapping("/checkDevCode")//判断用户名是否已被注册
     @ResponseBody
     public Map<String, Object> checkDevCode(@RequestParam(value = "devcode", required = true) String devcode) {
         Map map = new HashMap<String, Object>();
         DevUser devUser = devUserService.findDevUserByCode(devcode);
         if (devUser == null) {
+            //未注册
+            map.put("message", "success");
+        } else {
+            //已注册
+            map.put("message", "该用户名已被使用");
+        }
+        return map;
+    }
+    @RequestMapping("/checkUserCode")//判断用户名是否已被注册
+    @ResponseBody
+    public Map<String, Object> checkUserCode(@RequestParam(value = "usercode", required = true) String usercode) {
+        Map map = new HashMap<String, Object>();
+        BackendUser backendUser = backendUserService.findBackendUserByCode(usercode);
+        if (backendUser == null) {
             //未注册
             map.put("message", "success");
         } else {
@@ -88,6 +106,24 @@ public class RegisterController extends BaseController {
         devUser.setCreationdate(new java.util.Date());
         devUserService.addDevUser(devUser);
         model.addAttribute("registerMessage","注册成功");
+        model.addAttribute("type","normalUser");
+        return "register/registerSuccess";
+    }
+
+    @RequestMapping("/register_backend")
+    public String register_backend(Model model, @RequestParam(value = "usercode" ,required = true) String usercode,
+                           @RequestParam(value = "username" ,required = true) String username,
+                           @RequestParam(value = "userpassword" ,required = true) String userpassword)
+    {
+        BackendUser backendUser = new BackendUser();
+        backendUser.setUsercode(usercode);
+        backendUser.setUsername(username);
+        backendUser.setUserpassword(userpassword);
+
+        backendUser.setCreationdate(new java.util.Date());
+        backendUserService.addBackendUser(backendUser);
+        model.addAttribute("registerMessage","注册成功");
+        model.addAttribute("type","backendUser");
         return "register/registerSuccess";
     }
 }

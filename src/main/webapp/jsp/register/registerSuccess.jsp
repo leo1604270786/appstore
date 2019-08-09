@@ -94,8 +94,15 @@
 <script language=javascript>
 
     $("#btn").click(function () {
-        location.href="../developer/login.jsp";
+        <c:if test="${type eq 'normalUser'}">
+            location.href="${ctx}/jsp/developer/login.jsp";
+        </c:if>
+        <c:if test="${type eq 'backendUser'}">
+        location.href="${ctx}/jsp/backend/login.jsp";
+        </c:if>
+
     });
+
     $("#btn1").click(function () {
         location.href="${ctx}/jsp/index.jsp";
     });

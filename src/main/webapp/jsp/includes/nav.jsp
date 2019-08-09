@@ -3,7 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
 <header class="main-header">
     <!-- Logo -->
-    <a href="../jsp/index.jsp" class="logo">
+    <a href="../jsp/developer/index.jsp" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>AppStore</b></span>
         <!-- logo for regular state and mobile devices -->
@@ -16,10 +16,36 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
         <div class="navbar-custom-menu">
-            <c:if test="${empty devUser}">
-                <a  class="btn btn-default btn-flat" href="../jsp/login.jsp" style="color: black">[登录]</a>
-                &nbsp;&nbsp;
-                <a  class="btn btn-default btn-flat" href="../jsp/register.jsp" style="color: black">[注册]</a>
+            <c:if test="${not empty backendUser}">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <span class="hidden-xs">${backendUser.usercode}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header">
+                                <img src="${pageContext.request.contextPath}/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                <p>
+                                        ${backendUser.usercode}-管理员
+                                    <small><fmt:formatDate value="${backendUser.creationdate}" pattern="yyyy-MM-dd HH:mm:ss"/></small>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="${ctx}/BackUserDetail" class="btn btn-default btn-flat">个人信息</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="${ctx}/logout_backend" class="btn btn-default btn-flat">注销</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </c:if>
             <c:if test="${not empty devUser}">
                 <ul class="nav navbar-nav">

@@ -19,7 +19,7 @@
                 <small></small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="index.jsp"><i class="fa fa-dashboard"></i> 首页</a></li>
                 <li class="active">控制面板</li>
             </ol>
         </section>
