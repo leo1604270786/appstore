@@ -5,7 +5,6 @@
 <html lang="en">
 <head>
     <title>AppStore</title>
-
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -20,30 +19,23 @@
         }
     </script>
     <!--// Meta tag Keywords -->
-
     <!-- banner slider css -->
     <link href="${ctx}/static/css/minimal-slider.css" rel='stylesheet' type='text/css' />
     <!-- //banner slider css -->
-
     <!-- css files -->
     <link rel="stylesheet" href="${ctx}/static/css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
     <link href="${ctx}/static/css/style6.css" rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="${ctx}/static/css/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
     <link rel="stylesheet" href="${ctx}/static/css/fontawesome-all.css"> <!-- Font-Awesome-Icons-CSS -->
     <!-- //css files -->
-
     <!--web font-->
     <link href="http://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
     <!--//web font-->
-
 </head>
-
 <body>
-
 <!-- header -->
 <div class="header-top">
     <header>
-
         <div class="clearfix"></div>
         <nav class="">
             <div class="row">
@@ -66,45 +58,33 @@
                             <a href="${ctx}/jsp/backend/login.jsp"  >
                                 后台管理员登录</a>
                         </div>
-                        <div class="  col-md-3">
-                            <a href="${ctx}/jsp/register.jsp"  >
-                                注册新账号</a>
-                        </div>
+                      
                     </div>
                 </div>
             </div>
-
         </nav>
-
     </header>
 </div>
 <!-- header -->
-
 <!-- main image slider container -->
 <section class="slide-window">
     <div class="slide-wrapper" style="width:300%;">
         <div class="slide">
             <div class="slide-caption text-center">
                 <h3 class="text-uppercase">
-
                 </h3>
             </div>
         </div>
         <div class="slide slide2">
             <div class="slide-caption text-center">
                 <h3 class="text-uppercase">
-
                 </h3>
-
             </div>
         </div>
         <div class="slide slide3">
             <div class="slide-caption text-center">
                 <h3 class="text-uppercase">
-
                 </h3>
-
-
             </div>
         </div>
     </div>

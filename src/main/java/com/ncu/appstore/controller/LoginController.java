@@ -32,7 +32,7 @@ public class LoginController extends BaseController {
         }
         getSession().setAttribute("devUser",devUser);
         model.addAttribute("devUser",devUser);
-        return "index";
+        return "./developer/index";
     }
     /**
      * 退出登录
