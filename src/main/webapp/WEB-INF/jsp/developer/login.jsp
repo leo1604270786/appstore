@@ -40,7 +40,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">App信息管理平台用户登录</p>
 
-        <form action="/login" method="post" id="normal_form">
+        <form action="${pageContext.request.contextPath}/login" method="post" id="normal_form">
             <div class="form-group has-feedback">
                 <input id="email" name="devemail" type="email" class="form-control" placeholder="邮箱"  value="${devemail}">
                 <c:if test="${error eq 'email_fail'}">
@@ -133,7 +133,7 @@
         }else{
             $.ajax({
                 type: 'post',
-                url: '/checkCode',
+                url: '${ctx}/checkCode',
                 data: {"code": code},
                 dataType: 'json',
                 success: function (data) {

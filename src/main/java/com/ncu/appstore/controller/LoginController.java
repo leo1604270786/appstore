@@ -88,4 +88,21 @@ public class LoginController extends BaseController {
             return "developer/DevUserDetail";
         }
     }
+
+    /**
+     * 转到前台登录页
+     * @return
+     */
+    @RequestMapping("/developerLogin")
+    public String developerLogin(){
+        return "developer/login";
+    }
+    /**
+     * 转到后台登录页
+     * @return
+     */
+    @RequestMapping("/backendLogin")
+    public String backendLogin(){
+        return "backend/login";
+    }
 }

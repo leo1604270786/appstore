@@ -177,7 +177,7 @@
                 }
             }
         ];
-        dataTable = App.initDataTables("/appstore"+"/app/page",columns);
+        dataTable = App.initDataTables("${pageContext.request.contextPath}/app/page",columns);
         //获取分类列表
         var category = JSON.parse(App.getCategory("level1",""));
         //遍历分类列表，加入到下拉框中
@@ -220,11 +220,11 @@
             }
         });
         //获取状态列表，所属平台列表
-        var status = JSON.parse(App.getDictionary("/appstore/app/status"));
+        var status = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/status"));
         $.each(status, function (index, data) {
             $("#status").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
         });
-        var floar = JSON.parse(App.getDictionary("/appstore/app/floar"));
+        var floar = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/floar"));
         $.each(floar, function (index, data) {
             $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
         });

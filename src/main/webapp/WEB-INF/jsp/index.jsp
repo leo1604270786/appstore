@@ -51,11 +51,11 @@
                 <div class="col-md-6 top-head ml-lg-auto text-center">
                     <div class="row ">
                         <div class=" col-md-3">
-                            <a href="${ctx}/jsp/developer/login.jsp" >
+                            <a href="${ctx}/developerLogin" >
                                 普通用户登录</a>
                         </div>
                         <div class="  col-md-3 ">
-                            <a href="${ctx}/jsp/backend/login.jsp"  >
+                            <a href="${ctx}/backendLogin"  >
                                 后台管理员登录</a>
                         </div>
                       

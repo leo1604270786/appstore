@@ -204,14 +204,14 @@
         }
     });
     //获取平台信息
-    var floar = JSON.parse(App.getDictionary("/appstore/app/floar"));
+    var floar = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/floar"));
     $.each(floar, function (index, data) {
         $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
     });
     //初始化Dropzone
     App.initDropzone({
         id: "#dropz",
-        url: "/appstore/app/upload",
+        url: "${pageContext.request.contextPath}/app/upload",
         init: function () {
             this.on("success", function (file, data) {
                 $("#logowebpath").val(data.fileName);

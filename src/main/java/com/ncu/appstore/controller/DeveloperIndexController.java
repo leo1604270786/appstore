@@ -15,6 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DeveloperIndexController extends BaseController{
     @RequestMapping(value = "index",method = RequestMethod.GET)
     public String index(){
-        return "/developer/index";
+        return "developer/index";
     }
 }
