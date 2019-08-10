@@ -1,21 +1,20 @@
 package com.ncu.appstore.service.impl;
 
+import com.ncu.appstore.controller.BaseController;
 import com.ncu.appstore.dao.AppInfoMapper;
 import com.ncu.appstore.dto.AppInfoDTO;
 import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppCategory;
 import com.ncu.appstore.pojo.AppInfo;
+import com.ncu.appstore.pojo.DevUser;
 import com.ncu.appstore.service.AppInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @program: app-store
@@ -63,19 +62,24 @@ public class AppInfoServiceImpl implements AppInfoService {
 
     @Override
     public AppInfo getAppInfoById(Long id) {
-        return appInfoMapper.selectByPrimaryKey(id);
+        return appInfoMapper.getAppInfoById(""+id);
     }
 
     @Override
     @Transactional(readOnly = false)
     public BaseResult save(AppInfo appInfo) {
+        DevUser devUser = (DevUser)BaseController.getSession().getAttribute("devUser");
         //新增
         if (appInfo.getId() == null || "".equals(appInfo.getId().toString())){
+            appInfo.setCreateby(devUser.getId());
+            appInfo.setCreationdate(new Date());
             appInfoMapper.insert(appInfo);
         }
         //编辑
         else{
-            appInfoMapper.updateByPrimaryKeySelective(appInfo);
+            appInfo.setUpdatedate(new Date());
+            appInfo.setModifyby(devUser.getId());
+            appInfoMapper.update(appInfo);
         }
         return BaseResult.success("保存App基础信息成功");
     }

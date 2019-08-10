@@ -49,7 +49,7 @@ public class UploadController extends BaseController{
             file.mkdir();
         }
         //将文件更名后写入指定路径下
-        file = new File(filePath, UUID.randomUUID() + "" + System.currentTimeMillis() + fileSuffix);
+        file = new File(filePath, UUID.randomUUID() + "" + (System.currentTimeMillis()%10000) + fileSuffix);
         try {
             myFile.transferTo(file);
         } catch (IOException e) {

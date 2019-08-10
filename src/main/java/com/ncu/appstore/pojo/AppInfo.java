@@ -30,7 +30,6 @@ public class AppInfo implements Serializable {
 
     private Date updatedate;//更新时间
 
-    @Column(name = "devId")
     private DevUser devUser;
 
     private String appinfo;//app基本信息
@@ -61,7 +60,6 @@ public class AppInfo implements Serializable {
 
     private String logolocpath;//logo存储在本地电脑的路径
 
-    @Column(name = "versionId")
     private AppVersion appversion;//版本id
 
     private String logowebpath;//logo在web服务器存储路径

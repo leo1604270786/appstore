@@ -65,23 +65,23 @@ public class AppInfoController extends BaseController {
     public String form(){
         return "/developer/app_form";
     }
-
-    @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String save(AppInfo appInfo, Model model, RedirectAttributes attr){
+    @RequestMapping(value = "save",method = RequestMethod.POST)
+    public String save(AppInfo appInfo){
         //数据校验
 
         BaseResult baseResult = appInfoService.save(appInfo);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
-            attr.addFlashAttribute("baseResult",baseResult);
+            //attr.addFlashAttribute("baseResult",baseResult);
             return "redirect:/app/list";
         }
         //保存失败
         else {
-            model.addAttribute("baseResult",baseResult);
+            //model.addAttribute("baseResult",baseResult);
             return "/developer/app_form";
         }
     }
+
     /**
      * 分页查新app信息
      * @return
@@ -133,4 +133,6 @@ public class AppInfoController extends BaseController {
     public List<DataDictionary> getFloar(){
         return dataDictionaryService.getDataDictionaryByTypeCode("floar");
     }
+
+
 }

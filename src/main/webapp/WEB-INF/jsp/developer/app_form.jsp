@@ -91,8 +91,11 @@
                                 <label for="floatformid" class="col-sm-2 control-label">所属平台*</label>
 
                                 <div class="col-sm-10">
-                                    <select id="floatformid" name="floatformid" class="form-control" required="required">
+                                    <select id="floatformid" name="floatformid.id" class="form-control" required="required">
                                         <option value="">--请选择--</option>
+                                        <c:if test="${appInfo.floatformid != null}">
+                                            <option value="${appInfo.floatformid.id}" selected>${appInfo.floatformid.valuename}</option>
+                                        </c:if>
                                     </select>
                                 </div>
                             </div>
@@ -100,8 +103,11 @@
                                 <label for="categorylevel1" class="col-sm-2 control-label">一级分类*</label>
 
                                 <div class="col-sm-10">
-                                    <select id="categorylevel1" name="categorylevel1" class="form-control" required="required">
+                                    <select id="categorylevel1" name="categorylevel1.id" class="form-control" required="required">
                                         <option value="">--请选择--</option>
+                                        <c:if test="${appInfo.categorylevel1 != null}">
+                                            <option value="${appInfo.categorylevel1.id}" selected>${appInfo.categorylevel1.categoryname}</option>
+                                        </c:if>
                                     </select>
                                 </div>
                             </div>
@@ -109,8 +115,11 @@
                                 <label for="categorylevel2" class="col-sm-2 control-label">二级分类*</label>
 
                                 <div class="col-sm-10">
-                                    <select id="categorylevel2" name="categorylevel2" class="form-control" required="required">
+                                    <select id="categorylevel2" name="categorylevel2.id" class="form-control" required="required">
                                         <option value="">--请选择--</option>
+                                        <c:if test="${appInfo.categorylevel2 != null}">
+                                            <option value="${appInfo.categorylevel2.id}" selected>${appInfo.categorylevel2.categoryname}</option>
+                                        </c:if>
                                     </select>
                                 </div>
                             </div>
@@ -118,16 +127,20 @@
                                 <label for="categorylevel3" class="col-sm-2 control-label">三级分类*</label>
 
                                 <div class="col-sm-10">
-                                    <select id="categorylevel3" name="categorylevel3" class="form-control" required="required">
+                                    <select id="categorylevel3" name="categorylevel3.id" class="form-control" required="required">
                                         <option value="">--请选择--</option>
+                                        <c:if test="${appInfo.categorylevel3 != null}">
+                                            <option value="${appInfo.categorylevel3.id}" selected>${appInfo.categorylevel3.categoryname}</option>
+                                        </c:if>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="status" class="col-sm-2 control-label">App状态*</label>
+                                <label class="col-sm-2 control-label">App状态*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="status" cssClass="form-control" value="待审核" readonly="true"/>
+                                    <input type="text" class="form-control" value="${appInfo.status == null ? '待审核' : appInfo.status.valuename}" readonly="true">
+                                    <form:hidden path="status.id" value="${appInfo.status == null ? '4' : appInfo.status.id}"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -141,8 +154,9 @@
                                 <label for="logowebpath" class="col-sm-2 control-label">LOGO图片*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="logowebpath" cssClass="form-control" placeholder="LOGO图片" required="required"/>
-<%--                                    <div id="dropz" class="dropzone"></div>--%>
+                                    <form:input path="logowebpath" value="${appInfo.logowebpath == null ? '' : appInfo.logowebpath}" cssClass="form-control" placeholder="LOGO图片" required="required"/>
+
+                                    <div id="dropz" class="dropzone"></div>
                                 </div>
                             </div>
                             <div class="box-footer">
@@ -162,12 +176,17 @@
 <!-- Dropzone -->
 <script src="${pageContext.request.contextPath}/static/plugins/dropzone/min/dropzone.min.js"></script>
 <script>
-    //获取分类列表
-    var category = JSON.parse(App.getCategory("level1",""));
-    //遍历分类列表，加入到下拉框中
-    $.each(category, function (index, data) {
-        $("#categorylevel1").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
-    });
+    $("#categorylevel1").on("click",(function () {
+        this.empty();
+        this.append('<option value="">--请选择--</option>');
+        //获取分类列表
+        var category = JSON.parse(App.getCategory("level1",""));
+        //遍历分类列表，加入到下拉框中
+        $.each(category, function (index, data) {
+            $("#categorylevel1").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+        });
+
+    }));
     //console.log(category);
     //为一级分类添加自动获取下级分类事件
     $("#categorylevel1").change(function(){
@@ -203,13 +222,17 @@
             });
         }
     });
-    //获取平台信息
-    var floar = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/floar"));
-    $.each(floar, function (index, data) {
-        $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
+    $("#floatformid").on("click",function () {
+        this.empty();
+        this.append('<option value="">--请选择--</option>');
+        //获取平台信息
+        var floar = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/floar"));
+        $.each(floar, function (index, data) {
+            $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
+        });
     });
     //初始化Dropzone
-    App.initDropzone({
+    var dropz = App.initDropzone({
         id: "#dropz",
         url: "${pageContext.request.contextPath}/app/upload",
         init: function () {
@@ -218,6 +241,17 @@
             });
         }
     });
+    if (${appInfo.logowebpath != null}) {
+        console.log(dropz);
+        var mockFile = { name: "${appInfo.logowebpath}" , accepted:true };
+        dropz.emit("addedfile", mockFile);
+
+        //request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        dropz.emit("thumbnail", mockFile,"${pageContext.request.scheme}" + "://" + "${pageContext.request.serverName}"+":"+
+            "${pageContext.request.serverPort}" + "${pageContext.request.contextPath}" + "${appInfo.logowebpath}");
+        dropz.emit("complete", mockFile);
+        //dropz.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
+    }
 </script>
 </body>
 </html>

@@ -20,7 +20,6 @@ var App = function () {
         dictRemoveLinks: "删除",
         dictCancelUpload: "取消"
     };
-
     /*
     * 初始化DataTables
     * */
@@ -74,7 +73,7 @@ var App = function () {
         Dropzone.autoDiscover = false;
         //继承
         $.extend(defaultDropzoneOpts,opts);
-        new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
+        return new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
     };
     /**
      * 获取类目信息
@@ -119,16 +118,6 @@ var App = function () {
         });
         return dictionary;
     };
-    /*
-   * 初始化Dropzone
-   * */
-    var handlerInitDropzone = function (opts) {
-        //关闭Dropzone自动发现功能
-        Dropzone.autoDiscover = false;
-        //继承
-        $.extend(defaultDropzoneOpts,opts);
-        new Dropzone(defaultDropzoneOpts.id, defaultDropzoneOpts);
-    };
     return{
         //初始化DataTables
         initDataTables:function (url, columns) {
@@ -136,7 +125,7 @@ var App = function () {
         },
         //初始化Dropzone
         initDropzone:function (opts) {
-            handlerInitDropzone(opts);
+            return handlerInitDropzone(opts);
         },
         //获取分类列表
         getCategory: function (level,parent) {
@@ -145,10 +134,6 @@ var App = function () {
         //获取数据字典
         getDictionary: function (url) {
             return handlerGetDictionary(url);
-        },
-        //初始化Dropzone
-        initDropzone:function (opts) {
-            handlerInitDropzone(opts);
         }
     }
 }();
