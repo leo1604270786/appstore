@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +105,7 @@ public class AppInfoController extends BaseController {
         String length = request.getParameter("length");
         int intDraw = draw == null ? 0 : Integer.parseInt(draw);
         int intStart = start == null ? 0 : Integer.parseInt(start);
-        int intLength = length == null ? 10 : Integer.parseInt(length);
+        int intLength = length == null ? 5 : Integer.parseInt(length);
         //封装 DataTables 需要的数据
         return appInfoService.page(intDraw, intStart, intLength, appInfo);
     }
@@ -163,8 +164,16 @@ public class AppInfoController extends BaseController {
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public String delete(Long id, Model model){
-        BaseResult delete = appInfoService.delete(id);
-        model.addAttribute("baseResult",delete);
+        BaseResult baseResult = null;
+        //先删除该app下的所有版本
+        int i = appVersionService.deleteByAppId(id);
+        //删除app基础信息
+        baseResult = appInfoService.delete(id);
+        //失败
+        if (i <= 0 || baseResult.getStatus() == BaseResult.STATUS_FAIL){
+            baseResult = BaseResult.fail("删除失败");
+        }
+        model.addAttribute("baseResult",baseResult);
         return "developer/app_list";
     }
 
@@ -187,5 +196,43 @@ public class AppInfoController extends BaseController {
         model.addAttribute("appInfo",appInfoDTO);
         model.addAttribute("versionList",appVersions);
         return "developer/app_info";
+    }
+
+    /**
+     * 上架
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "onsale",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,String> onsale(Long id){
+        //已上架：7
+        int i = appInfoService.onSale(7L, id,new Date());
+        Map<String,String> result = new HashMap<>();
+        if (i <= 0){
+            result.put("status","fail");
+        } else {
+            result.put("status","success");
+        }
+        return result;
+    }
+
+    /**
+     * 下架
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "offsale",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,String> offsale(Long id){
+        //已下架：8
+        int i = appInfoService.offSale(8L, id, new Date());
+        Map<String,String> result = new HashMap<>();
+        if (i <= 0){
+            result.put("status","fail");
+        } else {
+            result.put("status","success");
+        }
+        return result;
     }
 }

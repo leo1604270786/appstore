@@ -17,4 +17,6 @@ public interface AppVersionService {
     AppVersion getAppVersionById(Long id);
 
     BaseResult save(AppVersion appVersion);
+
+    int deleteByAppId(Long appId);
 }

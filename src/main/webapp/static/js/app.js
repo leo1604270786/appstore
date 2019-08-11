@@ -25,9 +25,10 @@ var App = function () {
     * */
     var handlerInitDataTables = function (url, columns) {
         var dataTable = $("#dataTable").DataTable({
+            "pageLength": 5,
             "ordering": false,
             "lengthChange": false,
-            "stateSave": true,
+            "stateSave": false,
             "processing": true,
             "searching": false,
             "deferRender": true,

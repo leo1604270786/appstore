@@ -13,4 +13,6 @@ public interface AppVersionMapper extends Mapper<AppVersion> {
     int insert(AppVersion appVersion);
 
     int update(AppVersion appVersion);
+
+    int deleteByAppId(String appId);
 }

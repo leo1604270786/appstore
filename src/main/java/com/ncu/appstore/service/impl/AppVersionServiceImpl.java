@@ -52,4 +52,9 @@ public class AppVersionServiceImpl implements AppVersionService {
         }
         return BaseResult.success("保存App版本信息成功");
     }
+
+    @Override
+    public int deleteByAppId(Long appId) {
+        return appVersionMapper.deleteByAppId(appId+"");
+    }
 }

@@ -5,6 +5,7 @@ import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppInfo;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,4 +60,22 @@ public interface AppInfoService {
      * @return
      */
     int updateVersion(Long versionId, Long id);
+
+    /**
+     * 上架
+     * @param statusId
+     * @param id
+     * @param onSaleDate
+     * @return
+     */
+    int onSale(Long statusId, Long id, Date onSaleDate);
+
+    /**
+     * 下架
+     * @param statusId
+     * @param id
+     * @param onSaleDate
+     * @return
+     */
+    int offSale(Long statusId, Long id, Date onSaleDate);
 }

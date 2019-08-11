@@ -101,4 +101,10 @@
           `apkFileName` = #{apkfilename}
         WHERE `id` = #{id}
     </update>
+    <delete id="deleteByAppId">
+        DELETE
+        FROM
+          app_version
+        WHERE appId = #{appId}
+    </delete>
 </mapper>

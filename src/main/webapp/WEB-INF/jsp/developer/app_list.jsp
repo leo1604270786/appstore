@@ -118,8 +118,6 @@
                         </div>
                         <div class="box-body">
                             <a href="${pageContext.request.contextPath}/app/form" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus">新增</i></a>&nbsp;&nbsp;&nbsp;
-                            <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-download">导入</i></a>&nbsp;&nbsp;&nbsp;
-                            <a href="#" type="button" class="btn btn-default btn-sm"><i class="fa fa-upload">导出</i></a>&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-primary btn-sm" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-download">搜索</i></button>
                         </div>
                         <!-- /.box-header -->
@@ -173,9 +171,9 @@
                     var detaleUrl = "/user/detail?id=" + row.id;
                     return '<a href="${pageContext.request.contextPath}/app/info?id=' + row.id + '"class="btn btn-default btn-sm" onclick="#"><i class="fa fa-search">查看</i></a>&nbsp;&nbsp;&nbsp;' +
                         '<button class="btn btn-primary btn-sm" onclick="editCheck(\'' + row.id + '\' , \'' + row.status.valuename + '\');"><i class="fa fa-edit">编辑</i></button>&nbsp;&nbsp;&nbsp;' +
-                        '<a href="${pageContext.request.contextPath}/app/delete?id=' + row.id + '"class="btn btn-danger btn-sm" onclick="#"><i class="fa fa-trash-o">删除</i></a><br/>' +
-                        '<a href="${pageContext.request.contextPath}/app/onsale?id=' + row.id + '"class="btn btn-default btn-sm" onclick="#"><i class="fa fa-upload">上架</i></a>&nbsp;&nbsp;&nbsp;'+
-                        '<a href="${pageContext.request.contextPath}/app/onsale?id=' + row.id + '"class="btn btn-danger btn-sm" onclick="#"><i class="fa fa-download">下架</i></a>&nbsp;&nbsp;&nbsp;';
+                        '<button class="btn btn-danger btn-sm" onclick="deleteCheck(\'' + row.id + '\' , \'' + row.softwarename + '\');"><i class="fa fa-trash-o">删除</i></button><br/>' +
+                        '<button class="btn btn-default btn-sm" onclick="onSaleCheck(\'' + row.id + '\' , \'' + row.status.valuename + '\');"><i class="fa fa-upload">上架</i></button>&nbsp;&nbsp;&nbsp;'+
+                        '<button class="btn btn-danger btn-sm" onclick="offSaleCheck(\'' + row.id + '\' , \'' + row.status.valuename + '\');"><i class="fa fa-download">下架</i></button>&nbsp;&nbsp;&nbsp;';
                 }
             }
         ];
@@ -281,6 +279,61 @@
             alert("当前App状态为：已上架。不能编辑");
         }else {
             location.href = "${pageContext.request.contextPath}/app/form?id="+id;
+        }
+    }
+    //删除
+    function deleteCheck(id, softwarename) {
+        if(confirm("你确定删除App：【" + softwarename + "】及其所有版本吗？")){
+            var url = "${pageContext.request.contextPath}/app/delete?id="+id;
+            location.href = url;
+        }
+    }
+    //上架
+    function onSaleCheck(id, valuename) {
+        if (valuename === "已上架" || valuename === "审核未通过" || valuename === "待审核"){
+            alert("当前App状态为："+ valuename +"。不能上架。");
+        }else {
+            var url = "${pageContext.request.contextPath}/app/onsale?id="+id;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                async: false,
+                success: function(msg){
+                    if (msg["status"] === "success") {
+                        //更新表格
+                        dataTable.ajax.reload();
+                        //提示上架成功
+                        alert("上架成功");
+                    } else {
+                        alert("上架失败");
+                    }
+                }
+            });
+        }
+    }
+    //下架
+    function offSaleCheck(id, valuename) {
+        if (valuename !== "已上架"){
+            alert("当前App状态为："+ valuename +"。不能下架。");
+        }else {
+            var url = "${pageContext.request.contextPath}/app/offsale?id="+id;
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                async: false,
+                success: function(msg){
+                    if (msg["status"] === "success") {
+                        //更新表格
+                        dataTable.ajax.reload();
+                        //提示下架成功
+                        alert("下架成功");
+                    } else {
+                        alert("下架失败");
+                    }
+                }
+            });
         }
     }
 </script>

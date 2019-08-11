@@ -36,8 +36,7 @@
                         </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${pageContext.request.contextPath}/app/list"><i class="fa fa-circle-o"></i> App基础信息维护</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> App版本信息维护</a></li>
+                    <li><a href="${pageContext.request.contextPath}/app/list"><i class="fa fa-circle-o"></i> App信息维护</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i> App发布</a></li>
                 </ul>
             </li>
