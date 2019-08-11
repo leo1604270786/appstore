@@ -38,8 +38,7 @@
           data_floatformid.`valueName` AS floatformValue,
           ver.versionNo,
           ver.versionInfo,
-          ver.versionSize,
-          ver.apkFileName
+          ver.versionSize
     </sql>
     <!-- appInfo表结果映射 -->
     <resultMap id="appInfoMap" type="AppInfo">
@@ -55,8 +54,8 @@
         <association property="appversion" javaType="AppVersion">
             <id column="versionID" property="id"/>
             <result column="versionNo" property="versionno"/>
-            <result column="versionSize" property="versionno"/>
-            <result column="apkFileName" property="apkfilename"/>
+            <result column="versionSize" property="versionsize"/>
+            <result column="APKName" property="apkfilename"/>
         </association>
         <association property="devUser" javaType="DevUser">
             <id column="devId" jdbcType="BIGINT" property="id"/>
@@ -214,6 +213,19 @@
           `logoLocPath` = #{logolocpath},
           `versionId` = #{appversion.id},
           `logoWebPath` = #{logowebpath}
-        WHERE `id` = #{id};
+        WHERE `id` = #{id}
+    </update>
+    <select id="countAppInfoByApkName" resultType="Integer">
+        SELECT
+            COUNT(1)
+        FROM app_info AS a
+        WHERE a.APKName = #{apkname}
+    </select>
+    <update id="updateVersion">
+        UPDATE
+          app_info
+        SET
+          versionId = #{versionId}
+        WHERE id = #{id}
     </update>
 </mapper>

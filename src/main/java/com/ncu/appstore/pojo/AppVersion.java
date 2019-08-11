@@ -2,11 +2,16 @@ package com.ncu.appstore.pojo;
 
 import org.springframework.stereotype.Component;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 @Component
 public class AppVersion implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(app版本表)
 
     private Long appid;//app的id（外键app_info{id}）
@@ -15,7 +20,7 @@ public class AppVersion implements Serializable {
 
     private String versioninfo;//版本信息
 
-    private Long publishstatus;//发布状态，对应data_dictionary，1 不发布 2 已发布 3 预发布
+    private DataDictionary publishstatus;//发布状态，对应data_dictionary，1 不发布 2 已发布 3 预发布
 
     private String downloadlink;//'下载链接
 
@@ -65,11 +70,11 @@ public class AppVersion implements Serializable {
         this.versioninfo = versioninfo == null ? null : versioninfo.trim();
     }
 
-    public Long getPublishstatus() {
+    public DataDictionary getPublishstatus() {
         return publishstatus;
     }
 
-    public void setPublishstatus(Long publishstatus) {
+    public void setPublishstatus(DataDictionary publishstatus) {
         this.publishstatus = publishstatus;
     }
 

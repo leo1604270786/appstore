@@ -73,14 +73,38 @@ public class AppInfoServiceImpl implements AppInfoService {
         if (appInfo.getId() == null || "".equals(appInfo.getId().toString())){
             appInfo.setCreateby(devUser.getId());
             appInfo.setCreationdate(new Date());
+            appInfo.setModifyby(devUser.getId());
+            appInfo.setModifydate(new Date());
             appInfoMapper.insert(appInfo);
         }
         //编辑
         else{
             appInfo.setUpdatedate(new Date());
             appInfo.setModifyby(devUser.getId());
+            appInfo.setModifydate(new Date());
             appInfoMapper.update(appInfo);
         }
         return BaseResult.success("保存App基础信息成功");
     }
+
+    @Override
+    public int countAppInfoByApkName(String apkName) {
+        return appInfoMapper.countAppInfoByApkName(apkName);
+    }
+
+    @Override
+    public BaseResult delete(Long id) {
+        int delete = appInfoMapper.deleteByPrimaryKey(id);
+        if (delete <= 0){
+            return BaseResult.fail("删除失败！");
+        }
+        return BaseResult.success("删除成功。");
+    }
+
+    @Override
+    public int updateVersion(Long versionId, Long id) {
+        return appInfoMapper.updateVersion(versionId+"", id+"");
+    }
+
+
 }

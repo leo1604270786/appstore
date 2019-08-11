@@ -1,6 +1,7 @@
 package com.ncu.appstore.dao;
 
 import com.ncu.appstore.pojo.AppInfo;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -15,4 +16,8 @@ public interface AppInfoMapper extends Mapper<AppInfo> {
     AppInfo getAppInfoById(String id);
 
     int update(AppInfo appInfo);
+
+    int countAppInfoByApkName(String apkname);
+
+    int updateVersion(@Param("versionId") String versionId, @Param("id") String id);
 }

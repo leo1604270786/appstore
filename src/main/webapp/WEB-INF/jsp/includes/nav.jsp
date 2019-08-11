@@ -3,7 +3,7 @@
 <c:set var="ctx" value="${pageContext.request.contextPath }"/>
 <header class="main-header">
     <!-- Logo -->
-    <a href="../../jsp/developer/index.jsp" class="logo">
+    <a href="${pageContext.request.contextPath}/index" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>AppStore</b></span>
         <!-- logo for regular state and mobile devices -->

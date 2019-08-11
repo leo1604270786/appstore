@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ncu.appstore.dao.AppVersionMapper" >
+    <sql id="appVersionColumns">
+          ver.`id`,
+          ver.`appId`,
+          ver.`versionNo`,
+          ver.`versionInfo`,
+          ver.`publishStatus`,
+          ver.`downloadLink`,
+          ver.`versionSize`,
+          ver.`createBy`,
+          ver.`creationDate`,
+          ver.`modifyBy`,
+          ver.`modifyDate`,
+          ver.`apkLocPath`,
+          ver.`apkFileName`,
+          data.id AS publishstatusId,
+          data.valuename AS publishstatusValue
+    </sql>
+    <resultMap id="appVersionMap" type="AppVersion">
+        <id column="id" property="id"/>
+        <result column="appId" property="appid"/>
+        <result column="versionNo" property="versionno"/>
+        <result column="versionInfo" property="versioninfo"/>
+        <result column="downloadLink" property="downloadlink"/>
+        <result column="versionSize" property="versionsize"/>
+        <result column="modifyDate" property="modifydate"/>
+        <result column="apkFileName" property="apkfilename"/>
+        <result column="apkLocPath" property="apklocpath"/>
+        <association property="publishstatus" javaType="DataDictionary">
+            <id column="publishstatusId" property="id"/>
+            <result column="publishstatusValue" property="valuename"/>
+        </association>
+    </resultMap>
 
+    <select id="selectByAppId" resultMap="appVersionMap">
+        SELECT
+          <include refid="appVersionColumns"/>
+        FROM
+          app_version AS ver
+          LEFT JOIN data_dictionary as data ON ver.publishStatus = data.id
+        WHERE ver.appId = #{appId}
+    </select>
+
+    <select id="getAppVersionById" resultMap="appVersionMap">
+        SELECT
+        <include refid="appVersionColumns"/>
+        FROM
+        app_version AS ver
+        LEFT JOIN data_dictionary as data ON ver.publishStatus = data.id
+        WHERE ver.id = #{id}
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO app_version(
+          `appId`,
+          `versionNo`,
+          `versionInfo`,
+          `publishStatus`,
+          `downloadLink`,
+          `versionSize`,
+          `createBy`,
+          `creationDate`,
+          `modifyBy`,
+          `modifyDate`,
+          `apkLocPath`,
+          `apkFileName`
+        )
+        VALUES
+          (
+            #{appid},
+            #{versionno},
+            #{versioninfo},
+            #{publishstatus.id},
+            #{downloadlink},
+            #{versionsize},
+            #{createby},
+            #{creationdate},
+            #{modifyby},
+            #{modifydate},
+            #{apklocpath},
+            #{apkfilename}
+          )
+    </insert>
+    <update id="update">
+        UPDATE
+          app_version
+        SET
+          `appId` = #{appid},
+          `versionNo` = #{versionno},
+          `versionInfo` = #{versioninfo},
+          `publishStatus` = #{publishstatus.id},
+          `downloadLink` = #{downloadlink},
+          `versionSize` = #{versionsize},
+          `createBy` = #{createby},
+          `creationDate` = #{creationdate},
+          `modifyBy` = #{modifyby},
+          `modifyDate` = #{modifydate},
+          `apkLocPath` = #{apkLocpath},
+          `apkFileName` = #{apkfilename}
+        WHERE `id` = #{id}
+    </update>
 </mapper>

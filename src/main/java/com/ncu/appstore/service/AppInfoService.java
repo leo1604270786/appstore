@@ -5,6 +5,8 @@ import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppInfo;
 
+import java.util.List;
+
 /**
  * @program: app-store
  * @description:
@@ -35,4 +37,26 @@ public interface AppInfoService {
      * @return
      */
     BaseResult save(AppInfo appInfo);
+
+    /**
+     * 通过apkName计算AppInfo个数
+     * @param apkName
+     * @return
+     */
+    int countAppInfoByApkName(String apkName);
+
+    /**
+     * 删除app基础信息
+     * @param id
+     * @return
+     */
+    BaseResult delete(Long id);
+
+    /**
+     * 更新最近版本信息
+     * @param versionId
+     * @param id
+     * @return
+     */
+    int updateVersion(Long versionId, Long id);
 }

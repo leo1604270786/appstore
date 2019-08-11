@@ -5,10 +5,13 @@ import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppCategory;
 import com.ncu.appstore.pojo.AppInfo;
+import com.ncu.appstore.pojo.AppVersion;
 import com.ncu.appstore.pojo.DataDictionary;
 import com.ncu.appstore.service.AppCategoryService;
 import com.ncu.appstore.service.AppInfoService;
+import com.ncu.appstore.service.AppVersionService;
 import com.ncu.appstore.service.DataDictionaryService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: app-store
@@ -36,6 +41,8 @@ public class AppInfoController extends BaseController {
     private AppCategoryService appCategoryService;
     @Autowired
     private DataDictionaryService dataDictionaryService;
+    @Autowired
+    private AppVersionService appVersionService;
 
     @ModelAttribute
     private AppInfo getAppInfo(Long id){
@@ -66,18 +73,20 @@ public class AppInfoController extends BaseController {
         return "/developer/app_form";
     }
     @RequestMapping(value = "save",method = RequestMethod.POST)
-    public String save(AppInfo appInfo){
+    public String save(AppInfo appInfo, Model model, RedirectAttributes attr){
         //数据校验
 
         BaseResult baseResult = appInfoService.save(appInfo);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){
-            //attr.addFlashAttribute("baseResult",baseResult);
+            //重定向到列表页，并返回成功提示
+            attr.addFlashAttribute("baseResult",baseResult);
             return "redirect:/app/list";
         }
         //保存失败
         else {
-            //model.addAttribute("baseResult",baseResult);
+            //转发到表单页，并提示保存失败
+            model.addAttribute("baseResult",baseResult);
             return "/developer/app_form";
         }
     }
@@ -134,5 +143,49 @@ public class AppInfoController extends BaseController {
         return dataDictionaryService.getDataDictionaryByTypeCode("floar");
     }
 
+    /**
+     * 检查apk名称是否重复
+     * @param apkname
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "checkApkName", method = RequestMethod.GET)
+    public Map<String,String> checkApkName(String apkname){
+        Map<String,String> result = new HashMap<>();
+        int count = appInfoService.countAppInfoByApkName(apkname);
+        if (count <= 0){
+            result.put("has","false");
+        } else {
+            result.put("has","true");
+        }
+        return result;
+    }
 
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public String delete(Long id, Model model){
+        BaseResult delete = appInfoService.delete(id);
+        model.addAttribute("baseResult",delete);
+        return "developer/app_list";
+    }
+
+    @RequestMapping(value = "info",method = RequestMethod.GET)
+    public String info(Long id, Model model){
+        //查询app基础信息
+        AppInfo appInfo = appInfoService.getAppInfoById(id);
+        AppInfoDTO appInfoDTO = new AppInfoDTO();
+        BeanUtils.copyProperties(appInfo,appInfoDTO);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(appInfo.getCategorylevel1().getCategoryname()).append("->");
+        stringBuilder.append(appInfo.getCategorylevel2().getCategoryname()).append("->");
+        stringBuilder.append(appInfo.getCategorylevel3().getCategoryname());
+        AppCategory appCategory = new AppCategory();
+        appCategory.setCategoryname(stringBuilder.toString());
+        appInfoDTO.setCategorylevel(appCategory);
+        //查询该app版本信息
+        List<AppVersion> appVersions = appVersionService.selectByAppId(id + "");
+        //放入model
+        model.addAttribute("appInfo",appInfoDTO);
+        model.addAttribute("versionList",appVersions);
+        return "developer/app_info";
+    }
 }

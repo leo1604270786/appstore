@@ -131,7 +131,7 @@
                                     <th>APK名称</th>
                                     <th>软件大小(单位:M)</th>
                                     <th>所属平台</th>
-                                    <th>所属分类(一级、二级、三级分类)</th>
+                                    <th>所属分类(一、二、三级分类)</th>
                                     <th>状态</th>
                                     <th>下载次数</th>
                                     <th>最新版本号</th>
@@ -171,9 +171,11 @@
             {
                 "data": function (row, type, val, meta) {
                     var detaleUrl = "/user/detail?id=" + row.id;
-                    return '<button class="btn btn-default btn-sm" onclick="#"><i class="fa fa-search">查看</i></button>&nbsp;&nbsp;&nbsp;' +
-                        '<a href="${pageContext.request.contextPath}/app/form?id=' + row.id + '" type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit">编辑</i></a>&nbsp;&nbsp;&nbsp;' +
-                        '<button class="btn btn-danger btn-sm" onclick="#"><i class="fa fa-trash-o">删除</i></button>';
+                    return '<a href="${pageContext.request.contextPath}/app/info?id=' + row.id + '"class="btn btn-default btn-sm" onclick="#"><i class="fa fa-search">查看</i></a>&nbsp;&nbsp;&nbsp;' +
+                        '<button class="btn btn-primary btn-sm" onclick="editCheck(\'' + row.id + '\' , \'' + row.status.valuename + '\');"><i class="fa fa-edit">编辑</i></button>&nbsp;&nbsp;&nbsp;' +
+                        '<a href="${pageContext.request.contextPath}/app/delete?id=' + row.id + '"class="btn btn-danger btn-sm" onclick="#"><i class="fa fa-trash-o">删除</i></a><br/>' +
+                        '<a href="${pageContext.request.contextPath}/app/onsale?id=' + row.id + '"class="btn btn-default btn-sm" onclick="#"><i class="fa fa-upload">上架</i></a>&nbsp;&nbsp;&nbsp;'+
+                        '<a href="${pageContext.request.contextPath}/app/onsale?id=' + row.id + '"class="btn btn-danger btn-sm" onclick="#"><i class="fa fa-download">下架</i></a>&nbsp;&nbsp;&nbsp;';
                 }
             }
         ];
@@ -229,6 +231,7 @@
             $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
         });
     });
+    //搜索
     function search() {
         var softwarename = $("#softwarename").val();
         var status = $("#status").val();
@@ -268,6 +271,16 @@
             //设置参数，重新加载
             dataTable.settings()[0].ajax.data = param;
             dataTable.ajax.reload();
+        }
+    }
+    //编辑
+    function editCheck(id,valuename) {
+        //alert(id);
+        //alert(valuename);
+        if (valuename === "已上架"){
+            alert("当前App状态为：已上架。不能编辑");
+        }else {
+            location.href = "${pageContext.request.contextPath}/app/form?id="+id;
         }
     }
 </script>

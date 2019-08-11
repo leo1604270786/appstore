@@ -2,6 +2,9 @@ package com.ncu.appstore.controller;
 
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -13,7 +16,7 @@ import javax.servlet.http.HttpSession;
  * app-store-com.ncu.qppstore.common
  * created by LI LICHUNYAN at 2019/8/7
  */
-@Component
+@Controller
 public class BaseController {
     /**
      * 获取request
@@ -44,5 +47,9 @@ public class BaseController {
         } catch (Exception e) {}
         return session;
     }
-
+    /*@ExceptionHandler(Exception.class)
+    public String exceptionHandler(Exception exception, Model model){
+        model.addAttribute("exception",exception);
+        return "error";
+    }*/
 }

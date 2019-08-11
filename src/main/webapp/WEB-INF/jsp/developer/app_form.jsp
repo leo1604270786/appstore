@@ -56,7 +56,8 @@
                                 <label for="apkname" class="col-sm-2 control-label">APK名称*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="apkname" cssClass="form-control" placeholder="请输入APK名称" required="required"/>
+                                    <form:input path="apkname" cssClass="form-control" placeholder="请输入APK名称" required="required" readonly="${appInfo.id != null}"/>
+                                    <span id="apkname_span" style="display: none">apk名称已存在，请重新输入。</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -154,14 +155,14 @@
                                 <label for="logowebpath" class="col-sm-2 control-label">LOGO图片*</label>
 
                                 <div class="col-sm-10">
-                                    <form:input path="logowebpath" value="${appInfo.logowebpath == null ? '' : appInfo.logowebpath}" cssClass="form-control" placeholder="LOGO图片" required="required"/>
+                                    <form:input path="logowebpath" value="${appInfo.logowebpath == null ? '' : appInfo.logowebpath}" cssClass="form-control" placeholder="LOGO图片" readonly="true" required="required"/>
 
                                     <div id="dropz" class="dropzone"></div>
                                 </div>
                             </div>
                             <div class="box-footer">
                                 <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
-                                <button type="submit" class="btn btn-info pull-right">保存</button>
+                                <button type="button" class="btn btn-info pull-right" onclick="checkForm()">保存</button>
                             </div>
                         </div>
                     </form:form>
@@ -176,17 +177,13 @@
 <!-- Dropzone -->
 <script src="${pageContext.request.contextPath}/static/plugins/dropzone/min/dropzone.min.js"></script>
 <script>
-    $("#categorylevel1").on("click",(function () {
-        this.empty();
-        this.append('<option value="">--请选择--</option>');
-        //获取分类列表
-        var category = JSON.parse(App.getCategory("level1",""));
-        //遍历分类列表，加入到下拉框中
-        $.each(category, function (index, data) {
-            $("#categorylevel1").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
-        });
+    //获取分类列表
+    var category = JSON.parse(App.getCategory("level1",""));
+    //遍历分类列表，加入到下拉框中
+    $.each(category, function (index, data) {
+        $("#categorylevel1").append('<option value="'+data.id+'">'+ data.categoryname +'</option>')
+    });
 
-    }));
     //console.log(category);
     //为一级分类添加自动获取下级分类事件
     $("#categorylevel1").change(function(){
@@ -222,14 +219,10 @@
             });
         }
     });
-    $("#floatformid").on("click",function () {
-        this.empty();
-        this.append('<option value="">--请选择--</option>');
-        //获取平台信息
-        var floar = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/floar"));
-        $.each(floar, function (index, data) {
-            $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
-        });
+    //获取平台信息
+    var floar = JSON.parse(App.getDictionary("${pageContext.request.contextPath}/app/floar"));
+    $.each(floar, function (index, data) {
+        $("#floatformid").append('<option value="'+data.id+'">'+ data.valuename +'</option>')
     });
     //初始化Dropzone
     var dropz = App.initDropzone({
@@ -241,16 +234,65 @@
             });
         }
     });
-    if (${appInfo.logowebpath != null}) {
-        console.log(dropz);
-        var mockFile = { name: "${appInfo.logowebpath}" , accepted:true };
+    if (${appInfo.id != null}) {
+        //console.log(dropz);
+        var mockFile = {
+            name: "${appInfo.logowebpath}" ,
+            accepted:true
+        };
         dropz.emit("addedfile", mockFile);
-
+        var imageUrl = "${pageContext.request.scheme}" + "://" + "${pageContext.request.serverName}"+":"+
+            "${pageContext.request.serverPort}" + "${pageContext.request.contextPath}" + $("#logowebpath").val();
         //request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        dropz.emit("thumbnail", mockFile,"${pageContext.request.scheme}" + "://" + "${pageContext.request.serverName}"+":"+
-            "${pageContext.request.serverPort}" + "${pageContext.request.contextPath}" + "${appInfo.logowebpath}");
+        dropz.emit("thumbnail", mockFile,imageUrl);
         dropz.emit("complete", mockFile);
-        //dropz.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
+    }
+    //验证是否通过
+    var flag = true;
+    if (${appInfo.id == null}){
+        flag = false;
+    }
+    function checkForm(){
+        if ($("#appinfo").val() === ''){
+            alert("请输入应用简介");
+            return;
+        }
+        if ($("#logowebpath").val() === ''){
+            alert("请上传一张logo图片");
+            return;
+        }
+        //检验apkname是否重名
+        checkApkName();
+        if (flag){
+            $("#appInputForm").submit();
+        } else {
+            alert("请检查您输入的信息是否完整，正确");
+        }
+    }
+    $("#apkname").on("blur",function () {
+        checkApkName();
+    });
+    function checkApkName() {
+        if (${appInfo.id == null}){
+            var apkname = $("#apkname").val();
+            //通过ajax获取apk名称是否存在
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/app/checkApkName?apkname="+apkname,
+                dataType: 'json',
+                async: false,
+                success: function(msg){
+                    //存在
+                    if (msg['has'] === "true"){
+                        $("#apkname_span").css("color","red").show();
+                        flag = false;
+                    }else {
+                        $("#apkname_span").hide();
+                        flag =  true;
+                    }
+                }
+            });
+        }
     }
 </script>
 </body>
