@@ -47,9 +47,9 @@ public class BaseController {
         } catch (Exception e) {}
         return session;
     }
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     public String exceptionHandler(Exception exception, Model model){
         model.addAttribute("exception",exception);
         return "error";
-    }*/
+    }
 }

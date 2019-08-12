@@ -7,6 +7,8 @@ import com.ncu.appstore.service.AppVersionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +18,10 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -53,9 +57,20 @@ public class AppVersionController extends BaseController {
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String save(AppVersion appVersion, Model model, RedirectAttributes attr,@RequestParam("apkfile") CommonsMultipartFile apkfile){
+    public String save(@Valid AppVersion appVersion, Model model, RedirectAttributes attr,
+                       @RequestParam("apkfile") CommonsMultipartFile apkfile, BindingResult bindingResult){
         //数据校验
-
+        if (bindingResult.hasErrors()){
+            //拼接错误信息
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            StringBuilder errorMsg = new StringBuilder();
+            for (ObjectError error : allErrors) {
+                errorMsg.append(error.getDefaultMessage()).append("<br/>");
+            }
+            //转发到表单页，并提示保存失败
+            model.addAttribute("baseResult",BaseResult.fail(errorMsg.toString()));
+            return "/developer/appversion_form";
+        }
         //保存文件
         String path = saveFile(apkfile);
         appVersion.setApklocpath(path);

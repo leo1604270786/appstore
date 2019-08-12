@@ -15,6 +15,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -74,9 +77,19 @@ public class AppInfoController extends BaseController {
         return "/developer/app_form";
     }
     @RequestMapping(value = "save",method = RequestMethod.POST)
-    public String save(AppInfo appInfo, Model model, RedirectAttributes attr){
+    public String save(@Valid AppInfo appInfo, Model model, RedirectAttributes attr, BindingResult bindingResult){
         //数据校验
-
+        if (bindingResult.hasErrors()){
+            //拼接错误信息
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            StringBuilder errorMsg = new StringBuilder();
+            for (ObjectError error : allErrors) {
+                errorMsg.append(error.getDefaultMessage()).append("<br/>");
+            }
+            //转发到表单页，并提示保存失败
+            model.addAttribute("baseResult",BaseResult.fail(errorMsg.toString()));
+            return "/developer/app_form";
+        }
         BaseResult baseResult = appInfoService.save(appInfo);
         //保存成功
         if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS){

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,15 +16,15 @@ public class AppVersion implements Serializable {
     private Long id;//主键(app版本表)
 
     private Long appid;//app的id（外键app_info{id}）
-
+    @NotNull(message = "版本号不能为空")
     private String versionno;//版本编号
-
+    @NotNull(message = "版本简介不能为空")
     private String versioninfo;//版本信息
 
     private DataDictionary publishstatus;//发布状态，对应data_dictionary，1 不发布 2 已发布 3 预发布
 
     private String downloadlink;//'下载链接
-
+    @NotNull(message = "版本大小不能为空")
     private BigDecimal versionsize;//版本大小
 
     private Long createby;//创建者id（外键dev_user{id}）

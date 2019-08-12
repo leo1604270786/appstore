@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,21 +18,21 @@ public class AppInfo implements Serializable {
     @Id//标识主键
     @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;//主键(APP信息表)
-
+    @NotNull(message = "软件名称不能为空")
     private String softwarename;//软件名
-
+    @NotNull(message = "apk名称不能为空")
     private String apkname;//APK名
-
+    @NotNull(message = "支持的ROM不能为空")
     private String supportrom;//支持的ROM
-
+    @NotNull(message = "界面语言不能为空")
     private String interfacelanguage;//界面所用语言
-
+    @NotNull(message = "软件大小不能为空")
     private BigDecimal softwaresize;//'软件的大小(Mb)
 
     private Date updatedate;//更新时间
 
     private DevUser devUser;
-
+    @NotNull(message = "应用简介不能为空")
     private String appinfo;//app基本信息
 
     private DataDictionary status;//状态（对应：data_dictionary，1 待审核 2 审核通过 3 审核不通过 4 已上架 5 已下架）
@@ -43,7 +44,7 @@ public class AppInfo implements Serializable {
     private DataDictionary floatformid;//平台类型(对应date_dictionary，1，手机，2，平板，3，通用)
 
     private AppCategory categorylevel3;//三级分类id（来自app_category）
-
+    @NotNull(message = "下载量不能为空")
     private Long downloads;//下载量
 
     private Long createby;//谁添加的(对应dev_user{id})
@@ -61,7 +62,7 @@ public class AppInfo implements Serializable {
     private String logolocpath;//logo存储在本地电脑的路径
 
     private AppVersion appversion;//版本id
-
+    @NotNull(message = "logo存储地址不能为空")
     private String logowebpath;//logo在web服务器存储路径
 
     public Long getId() {
