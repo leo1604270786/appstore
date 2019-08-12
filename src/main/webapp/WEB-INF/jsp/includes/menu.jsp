@@ -37,19 +37,17 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="${pageContext.request.contextPath}/app/list"><i class="fa fa-circle-o"></i> App信息维护</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> App发布</a></li>
                 </ul>
             </li>
             <li class="active treeview">
                 <a href="#">
-                    <i class="fa fa-book"></i> <span>广告管理</span>
+                    <i class="fa fa-book"></i> <span>App账户管理</span>
                     <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 广告管理1</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 广告管理2</a></li>
+                    <li><a href="${pageContext.request.contextPath}/DevUserDetail"><i class="fa fa-circle-o"></i> 编辑个人信息</a></li>
                 </ul>
             </li>
         </ul>

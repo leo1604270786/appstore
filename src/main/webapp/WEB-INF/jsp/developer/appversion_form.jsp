@@ -83,7 +83,7 @@
                                     </c:if>
                                     <c:if test="${appVersion.id != null}">
                                         <form:input path="apkfilename" cssClass="form-control" required="required" readonly="true" value="${appVersion.apkfilename}"/>
-                                        <button type="button" class="btn btn-info" onclick="download('${appVersion.id}')" style="margin-top: 20px">下载</button>&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-info" onclick="" style="margin-top: 20px">删除</button>
+                                        <button type="button" class="btn btn-info" onclick="download('${appVersion.id}')" style="margin-top: 20px">下载</button>&nbsp;
                                     </c:if>
                                 </div>
                             </div>

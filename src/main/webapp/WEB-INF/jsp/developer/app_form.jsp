@@ -162,7 +162,10 @@
                             </div>
                             <div class="box-footer">
                                 <button type="button" class="btn btn-default" onclick="history.go(-1)">返回</button>
-                                <button type="button" class="btn btn-info pull-right" onclick="checkForm()">保存</button>
+                                <button type="button" class="btn btn-info pull-right" onclick="checkForm()" style="margin-left: 10px">保存</button>
+                                <c:if test="${appInfo.id != null && appInfo.status.valuename == '审核未通过'}">
+                                    <button type="button" class="btn btn-info pull-right" onclick="checkForm()">保存并再次提交审核</button>
+                                </c:if>
                             </div>
                         </div>
                     </form:form>
@@ -264,6 +267,10 @@
         //检验apkname是否重名
         checkApkName();
         if (flag){
+            //修改，且状态为审核未通过
+            if (${appInfo.id != null && appInfo.status.valuename == '审核未通过'}){
+                $("input[name^='status']").val('4');
+            }
             $("#appInputForm").submit();
         } else {
             alert("请检查您输入的信息是否完整，正确");
