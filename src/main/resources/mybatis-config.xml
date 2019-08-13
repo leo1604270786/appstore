@@ -51,6 +51,6 @@
             <!--通用Mapper接口，多个通用接口用逗号隔开-->
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
         </plugin>
-
+        <plugin interceptor="com.ncu.appstore.common.PageHelper"></plugin>
     </plugins>
 </configuration>

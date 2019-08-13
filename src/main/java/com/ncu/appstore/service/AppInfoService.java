@@ -78,4 +78,6 @@ public interface AppInfoService {
      * @return
      */
     int offSale(Long statusId, Long id, Date onSaleDate);
+    int pass(long id);
+    int reject(long id);
 }

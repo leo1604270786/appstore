@@ -7,6 +7,7 @@ import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
 import com.ncu.appstore.pojo.AppCategory;
 import com.ncu.appstore.pojo.AppInfo;
+import com.ncu.appstore.pojo.DataDictionary;
 import com.ncu.appstore.pojo.DevUser;
 import com.ncu.appstore.service.AppInfoService;
 import org.springframework.beans.BeanUtils;
@@ -25,8 +26,23 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 public class AppInfoServiceImpl implements AppInfoService {
+
     @Autowired
     private AppInfoMapper appInfoMapper;
+    public int pass(long id){
+        AppInfo appInfo = new AppInfo();
+        appInfo.setId(id);
+        appInfo = appInfoMapper.selectByPrimaryKey(appInfo);
+        appInfo.getStatus().setValuename("审核通过");
+        return appInfoMapper.update(appInfo);
+    }
+    public int reject(long id){
+        AppInfo appInfo = new AppInfo();
+        appInfo.setId(id);
+        appInfo = appInfoMapper.selectByPrimaryKey(appInfo);
+        appInfo.getStatus().setValuename("审核不通过");
+        return appInfoMapper.update(appInfo);
+    }
     public PageInfo<AppInfoDTO> page(int draw, int start, int length, AppInfo appInfo) {
         //获取当前登录用户
         DevUser devUser = (DevUser)BaseController.getSession().getAttribute("devUser");

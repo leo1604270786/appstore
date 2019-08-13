@@ -61,5 +61,21 @@
         <filter-name>characterEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    <!--自定义过滤器-->
+    <filter>
+        <filter-name>dispatcherDemoFilter1</filter-name>
+        <filter-class>com.ncu.appstore.interceptor.APPInfoPageFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>dispatcherDemoFilter1</filter-name>
+        <url-pattern>/check_app/list</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>dispatcherDemoFilter2</filter-name>
+        <filter-class>com.ncu.appstore.interceptor.SearchFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>dispatcherDemoFilter2</filter-name>
+        <url-pattern>/check_app/search</url-pattern>
+    </filter-mapping>
 </web-app>

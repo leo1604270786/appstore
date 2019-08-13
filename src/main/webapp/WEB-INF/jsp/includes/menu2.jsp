@@ -33,11 +33,10 @@
                     <i class="fa fa-apple"></i> <span>App管理</span>
                     <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
-                        </span>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="${pageContext.request.contextPath}/jsp/backend/app_list.jsp"><i class="fa fa-circle-o"></i> App基础信息维护</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> App审核</a></li>
+                    <li><a href="${pageContext.request.contextPath}/check_app/list"><i class="fa fa-circle-o"></i> APP审核</a></li>
                     <li><a href="#"><i class="fa fa-circle-o"></i> 广告推广</a></li>
                 </ul>
             </li>

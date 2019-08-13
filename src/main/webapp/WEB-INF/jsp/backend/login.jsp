@@ -38,15 +38,13 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">App信息管理平台用户登录</p>
-
-        <form action="/login_backend" method="post" id="normal_form">
+        <p class="login-box-msg">APP后台管理员登陆</p>
+        <form action="${ctx}/login_backend" method="post" id="normal_form">
             <div class="form-group has-feedback">
                 <input id="usercode" name="usercode" type="text" class="form-control" placeholder="账号"  value="${usercode}">
                 <c:if test="${error eq 'usercode_fail'}">
                     <span id="usercode_span" style="color: red" >账号不存在</span>
                 </c:if>
-
             </div>
             <div class="form-group has-feedback">
                 <input id="pwd" type="password" class="form-control" placeholder="密码" name="userpassword" value="${userpassword}">

@@ -5,13 +5,15 @@ import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public interface AppInfoMapper extends Mapper<AppInfo> {
 
     List<AppInfo> page(Map<String,Object> param);
-
+    List<AppInfo> findAllToCheck();
+    List<AppInfo> search(HashMap map);
     int count(Map<String,Object> param);
 
     int insert(AppInfo appInfo);
