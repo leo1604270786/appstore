@@ -114,11 +114,10 @@
                                          alt="logo" width="200">
                                 </div>
                             </div>
-
                         </div>
                         <div class="form-group" style="padding-left: 200px">
-                            <button class="btn btn-info" style="background-color: red" onclick="pass1()">通过</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-info" style="background-color: red" onclick="reject1()">不通过</button>
+                            <button class="btn btn-info" style="background-color: red" ><a href="/check_app/pass/${appInfo.id}">通过</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-info" style="background-color: red" ><a href="/check_app/reject/${appInfo.id}">不通过</a></button>
                         </div>
                     </form>
                 </div>
@@ -169,41 +168,7 @@
 </div>
 <jsp:include page="../includes/footer.jsp"/>
 <script>
-    function pass1() {
-        var id = ${appInfo.id};
 
-        $.ajax({
-            type: 'get',
-            url: '/check_app/pass',
-            data: {"appInfoId": id},
-            dataType: 'json',
-            success: function (data) {
-                var val = data['message'];
-                if (val == "success") {
-                    alert("操作成功");
-                }else {
-                    alert("操作失败");
-                }
-            }
-        });
-    }
-    function reject1() {
-        var id = ${appInfo.id};
-        $.ajax({
-            type: 'get',
-            url: '/check_app/reject',
-            data: {"appInfoId": id},
-            dataType: 'json',
-            success: function (data) {
-                var val = data['message'];
-                if (val == "success") {
-                    alert("操作成功");
-                }else {
-                    alert("操作失败");
-                }
-            }
-        });
-    }
 </script>
 </body>
 </html>

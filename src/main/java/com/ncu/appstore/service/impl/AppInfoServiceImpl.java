@@ -2,6 +2,7 @@ package com.ncu.appstore.service.impl;
 
 import com.ncu.appstore.controller.BaseController;
 import com.ncu.appstore.dao.AppInfoMapper;
+import com.ncu.appstore.dao.DataDictionaryMapper;
 import com.ncu.appstore.dto.AppInfoDTO;
 import com.ncu.appstore.dto.BaseResult;
 import com.ncu.appstore.dto.PageInfo;
@@ -14,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 
@@ -29,19 +31,21 @@ public class AppInfoServiceImpl implements AppInfoService {
 
     @Autowired
     private AppInfoMapper appInfoMapper;
+    @Autowired
+    private DataDictionaryMapper dataDictionaryMapper;
+    @Transactional(readOnly = false)
     public int pass(long id){
-        AppInfo appInfo = new AppInfo();
-        appInfo.setId(id);
-        appInfo = appInfoMapper.selectByPrimaryKey(appInfo);
-        appInfo.getStatus().setValuename("审核通过");
-        return appInfoMapper.update(appInfo);
+        AppInfo appInfo = getAppInfoById(id);
+        DataDictionary status = appInfo.getStatus();
+        status.setValuename("审核通过");
+        return dataDictionaryMapper.update(status.getId(),status.getValuename());
     }
+    @Transactional(readOnly = false)
     public int reject(long id){
-        AppInfo appInfo = new AppInfo();
-        appInfo.setId(id);
-        appInfo = appInfoMapper.selectByPrimaryKey(appInfo);
-        appInfo.getStatus().setValuename("审核不通过");
-        return appInfoMapper.update(appInfo);
+        AppInfo appInfo = getAppInfoById(id);
+        DataDictionary status = appInfo.getStatus();
+        status.setValuename("审核不通过");
+        return dataDictionaryMapper.update(status.getId(),status.getValuename());
     }
     public PageInfo<AppInfoDTO> page(int draw, int start, int length, AppInfo appInfo) {
         //获取当前登录用户

@@ -85,6 +85,7 @@
             <result column="parent3" property="parentid"/>
         </association>
     </resultMap>
+
     <select id="page" resultMap="appInfoMap" parameterType="java.util.Map">
         SELECT
         <include refid="appInfoColumns"/>
@@ -120,6 +121,7 @@
         </where>
         LIMIT #{start}, #{length}
     </select>
+
     <select id="findAllToCheck" resultMap="appInfoMap">
         SELECT
         <include refid="appInfoColumns"/>

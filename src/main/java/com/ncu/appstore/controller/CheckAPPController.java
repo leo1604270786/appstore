@@ -12,6 +12,7 @@ import com.ncu.appstore.service.DataDictionaryService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
@@ -38,43 +39,34 @@ public class CheckAPPController extends BaseController {
      * 跳转到列表页
      * @return
      */
-    @RequestMapping(value = "/check_app/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/check_app/list")
     public String list(){
         return "/backend/app_list";
     }
+
     @RequestMapping("/check_app/search")
     public String search()
     {
        return "/backend/app_list";
     }
+
     @RequestMapping("/check_app/check/{id}")
     public String check(@PathVariable("id") Long id)
     {
         return "redirect:/check_app/info?id="+id;
     }
-    @RequestMapping("/check_app/pass")
-    @ResponseBody
-    public Map<String,Object> pass(@RequestParam("appInfoId") long id){
-        Map<String,Object> map = new HashMap<String,Object>();
-        if(appInfoService.pass(id)>0){
-            map.put("message","success");
-        }else {
-            map.put("message","fail");
-        }
-        return map;
+
+    @RequestMapping(value = "/check_app/pass/{id}")
+    public String pass(@PathVariable("id") long id){
+        appInfoService.pass(id);
+        return "redirect:/check_app/list";
     }
-    @RequestMapping("/check_app/reject")
-    @ResponseBody
-    public Map<String,Object> reject(@RequestParam("appInfoId") long id){
-        Map<String,Object> map = new HashMap<String,Object>();
-        if(appInfoService.reject(id)>0){
-            map.put("message","success");
-        }else {
-            map.put("message","fail");
-        }
-        return map;
+    @RequestMapping(value = "/check_app/reject/{id}")
+    public String reject(@PathVariable("id") long id){
+        appInfoService.reject(id);
+        return "redirect:/check_app/list";
     }
-    @RequestMapping(value = "/check_app/info",method = RequestMethod.GET)
+    @RequestMapping(value = "/check_app/info")
     public String info(Long id, Model model){
         //查询app基础信息
         AppInfo appInfo = appInfoService.getAppInfoById(id);
