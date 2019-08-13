@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="ctx" value="${pageContext.request.contextPath }"/>
 <html>
 <head>
     <title>AppStore | 控制面板</title>
@@ -26,7 +27,6 @@
         <!-- Main content -->
         <section class="content">
             <div class="col-xs-12">
-
                 <div class="box box-info">
                     <div class="box-header with-border">
                         <h3 class="box-title">审核</h3>
@@ -116,8 +116,8 @@
                             </div>
                         </div>
                         <div class="form-group" style="padding-left: 200px">
-                            <button class="btn btn-info" style="background-color: red" ><a href="/check_app/pass/${appInfo.id}">通过</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-info" style="background-color: red" ><a href="/check_app/reject/${appInfo.id}">不通过</a></button>
+                            <button class="btn btn-info" style="background-color: red" ><a href="${ctx}/check_app/pass/${appInfo.id}">通过</a></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-info" style="background-color: red" ><a href="${ctx}/check_app/reject/${appInfo.id}">不通过</a></button>
                         </div>
                     </form>
                 </div>
