@@ -15,7 +15,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
 
-        <spring.version>4.3.17.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <log4j.version>1.2.17</log4j.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <jstl.version>1.2</jstl.version>
